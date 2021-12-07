@@ -7,6 +7,7 @@ export default function modelMenu(app: Element): void {
             Choose the model you are going to be working with:
         </label>
         <select name="models-names" id="models-names">
+            <option>---</option>
             <option disabled>Stochastic Models</option>
             <option value="MM1">MM1</option>
             <option value="MM1K">MM1K</option>

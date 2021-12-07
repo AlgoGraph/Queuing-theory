@@ -7,7 +7,6 @@ export default function showModel(app: Element, evt: Event): void {
     const modelType: string = (evt.target as HTMLSelectElement).value;
 
     if (isValidModel(modelType)) {
-        // show the page for this model
         displayModel(app, modelType);
     }
 }

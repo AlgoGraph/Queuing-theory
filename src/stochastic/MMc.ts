@@ -23,7 +23,7 @@ import {factorial} from "../utils";
 
 class MMc {
 
-    constructor(private numberOfServers: number, private arrivalRate: number, private serviceRate: number) {}
+    constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {}
 
     calcServiceRate(numberOfCustomer: number): number {
         if (numberOfCustomer < 0) {

@@ -35,7 +35,7 @@
 import {factorial} from "../utils";
 
 class MMcK {
-    constructor(private numberOfServers: number, private arrivalRate: number, private serviceRate: number, private systemCapacity: number) {}
+    constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number, private numberOfServers: number) {}
 
     calcServiceRate(numberOfCustomer: number): number {
         if (numberOfCustomer < 0 || numberOfCustomer > this.systemCapacity) {
