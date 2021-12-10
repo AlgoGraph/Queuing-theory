@@ -1,8 +1,11 @@
 import {Models} from "../app.js";
+import modelMenu from "../ModelMenu.js";
 
 export default  function createModelForm(model: Models): string {
     let form = `
-                    <form id="model-form" class="${model}">
+                    <h2>${Models[model]}</h2>
+                    <button id="go-to-menu">&#8592; Return to Models Menu</button>
+                    <form id="model-form" class="${Models[model]}">
                 `
 
     // all need lambda and Mu
@@ -52,6 +55,11 @@ export default  function createModelForm(model: Models): string {
             `
     form += '</form>';
 
+
     return form;
+
+
 }
+
+
 

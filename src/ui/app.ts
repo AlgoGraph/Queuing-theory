@@ -1,6 +1,6 @@
 import modelMenu from "./ModelMenu.js";
 
-export enum Models {
+export enum  Models {
     MM1,
     MM1K,
     MMc,
@@ -12,7 +12,7 @@ function init(): void {
     let app: Element | null = document.querySelector("#app");
 
     if (app) {
-        modelMenu(app);
+        modelMenu();
     }
 }
 

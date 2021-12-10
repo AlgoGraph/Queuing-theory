@@ -1,6 +1,7 @@
 import showModel from "./modePage.js";
 
-export default function modelMenu(app: Element): void {
+export default function modelMenu(): void {
+    const app = document.querySelector("#app");
     app.innerHTML = `
     <form id="ModelMenu">
         <label for="models-names">

@@ -1,4 +1,5 @@
 import {Models} from "../app.js";
+import resultPage from "../resultPage/resultPage.js";
 
 export default function handleModelFormSubmit() {
     const form: HTMLFormElement = document.querySelector("#model-form");
@@ -7,6 +8,9 @@ export default function handleModelFormSubmit() {
         e.preventDefault();
 
         let modelParams = getUserInput(form);
+
+
+        resultPage(Models[form.classList[0]]);
 
         //     // evaluate any expression in the text
         //

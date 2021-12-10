@@ -2,6 +2,7 @@ import MM1Page from "./modelPages/MM1.js";
 import MM1KPage from "./modelPages/MM1K.js";
 import MMcPage from "./modelPages/MMc.js";
 import MMcKPage from "./modelPages/MMcK.js";
+import modelMenu from "./ModelMenu.js";
 
 export default function showModel(app: Element, evt: Event): void {
     const modelType: string = (evt.target as HTMLSelectElement).value;
@@ -26,4 +27,7 @@ function displayModel(app: Element, modelType: string): void {
     }
 
     models[modelType](app);
+
+    (<HTMLButtonElement>document.querySelector("#go-to-menu")).onclick = (ev: MouseEvent) => modelMenu();
+
 }
