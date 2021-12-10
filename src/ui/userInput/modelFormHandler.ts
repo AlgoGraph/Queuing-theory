@@ -1,5 +1,5 @@
-import {Models} from "../app.js";
 import resultPage from "../resultPage/resultPage.js";
+import {Models} from "../../types.js";
 
 export default function handleModelFormSubmit() {
     const form: HTMLFormElement = document.querySelector("#model-form");
@@ -11,22 +11,6 @@ export default function handleModelFormSubmit() {
 
 
         resultPage(Models[form.classList[0]]);
-
-        //     // evaluate any expression in the text
-        //
-        //     console.log([lambda, mu, time]);
-        //
-        //     if (isValidUserInput(lambda, mu, time)) {
-        //         const result = solveDD1K(lambda, mu, time);
-        //         showResult(result)
-        //     }
-        //
-        // }
-
-        // handle the user input, and show any error messages needed
-
-        //  if  all is good >> call the right function with the user input to :
-        // create the model and show its page
     }
 }
 
@@ -38,7 +22,8 @@ function getUserInput(form: HTMLFormElement): { lambda: string, mu: string, K?: 
         lambda: string,
         mu: string,
         K?: string,
-        c?: string
+        c?: string,
+        M?: string
     } = {
         lambda: "",
         mu: ""
@@ -47,11 +32,16 @@ function getUserInput(form: HTMLFormElement): { lambda: string, mu: string, K?: 
 
     input.mu = EvaluateExpression((<HTMLInputElement>document.querySelector("#mu")).value);
 
-    if (form.classList[0] == Models.MM1K.toString() ||form.classList[0] == Models.MMcK.toString()) {
+    if (form.classList[0] == Models[Models.DD1K]) {
+        input.M = EvaluateExpression((<HTMLInputElement>document.querySelector("#M")).value);
+
+    }
+
+    if (form.classList[0] == Models[Models.MM1K] ||form.classList[0] == Models[Models.MMcK] || form.classList[0] == Models[Models.DD1K]) {
         input.K = EvaluateExpression((<HTMLInputElement>document.querySelector("#K")).value);
 
     }
-    if (form.classList[0] == Models.MMc.toString() ||form.classList[0] == Models.MMcK.toString()) {
+    if (form.classList[0] == Models[Models.MMc] ||form.classList[0] == Models[Models.MMcK]) {
         input.c = EvaluateExpression((<HTMLInputElement>document.querySelector("#c")).value);
     }
 
@@ -64,7 +54,7 @@ function EvaluateExpression(input) {
             return input;
         } catch (e) {
             console.error(e.message)
-            console.log(input)
-            return input
+            console.log(input, e.message)
+            return e.message
         }
 }

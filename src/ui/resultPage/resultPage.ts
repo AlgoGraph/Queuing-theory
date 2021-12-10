@@ -1,9 +1,9 @@
 // create the form for all the types
 // a pop-up for the visualizer
-import {Models} from "../app.js";
+import {Models} from "../../types.js";
 
 export default function resultPage (model: Models) {
-    const card:HTMLElement =  document.querySelector("#card");
+    const modelCard:HTMLElement =  document.querySelector("#model-card");
 
     let card_content: string = `
         
@@ -106,5 +106,5 @@ export default function resultPage (model: Models) {
     }
 
 
-    card.innerHTML = card_content
+    modelCard.innerHTML = card_content
 }

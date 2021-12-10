@@ -1,10 +1,8 @@
-import {Models} from "../app.js";
-import modelMenu from "../ModelMenu.js";
+import {Models} from "../../types.js";
 
-export default  function createModelForm(model: Models): string {
+export default function createModelForm(model: Models): string {
     let form = `
                     <h2>${Models[model]}</h2>
-                    <button id="go-to-menu">&#8592; Return to Models Menu</button>
                     <form id="model-form" class="${Models[model]}">
                 `
 
@@ -20,7 +18,19 @@ export default  function createModelForm(model: Models): string {
         </label>
             <input id="mu" type="text" name="mu">
 `
-    if (model == Models.MM1K) {
+    if (model == Models.DD1K) {
+        form += `
+                  <label for="K">
+                    System Capacity "K"
+                  </label>  
+                    <input id="K" type="text" name="K">
+                    
+                  <label for="M">
+                    Number Of Customers At The Start "M" *(optional)
+                  </label>  
+                    <input id="M" type="text" name="M">
+                `
+    } else if (model == Models.MM1K) {
         form += `
                   <label for="K">
                     System Capacity "K"
@@ -51,14 +61,12 @@ export default  function createModelForm(model: Models): string {
 
 
     form += `        
-            <button type="submit">Solve</button>
+            <button type="submit">Create Model</button>
             `
     form += '</form>';
 
 
     return form;
-
-
 }
 
 
