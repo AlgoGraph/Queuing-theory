@@ -1,5 +1,7 @@
-import resultPage from "../resultPage/resultPage.js";
-import {Models} from "../../types.js";
+import resultPage from "../ResultPage.js";
+import {Models, UserInput} from "../../types.js";
+import InputValidator from "./InputValidator.js";
+import {displayModel} from "../ModePage.js";
 
 export default function handleModelFormSubmit() {
     const form: HTMLFormElement = document.querySelector("#model-form");
@@ -11,24 +13,27 @@ export default function handleModelFormSubmit() {
 
 
         resultPage(Models[form.classList[0]]);
+
+        const goBackButton = document.querySelector("#go-to-model-form");
+        goBackButton.addEventListener("click", () => displayModel(form.classList[0]));
+        console.log(goBackButton)
     }
 }
 
 /*
     * Form functions
 */
-function getUserInput(form: HTMLFormElement): { lambda: string, mu: string, K?: string, c?: string } {
-    let input: {
-        lambda: string,
-        mu: string,
-        K?: string,
-        c?: string,
-        M?: string
-    } = {
+function getUserInput(form: HTMLFormElement): UserInput {
+    let input: UserInput = {
         lambda: "",
         mu: ""
     };
-    input.lambda = EvaluateExpression((<HTMLInputElement>document.querySelector("#lambda")).value);
+    try {
+        input.lambda = EvaluateExpression((<HTMLInputElement>document.querySelector("#lambda")).value);
+        InputValidator.isValidLambda(input.lambda)
+    } catch (e) {
+        console.log(e.message);
+    }
 
     input.mu = EvaluateExpression((<HTMLInputElement>document.querySelector("#mu")).value);
 

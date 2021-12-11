@@ -37,6 +37,7 @@ import {factorial} from "../utils";
 class MMcK {
     constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number, private numberOfServers: number) {}
 
+    // reviewed
     calcServiceRate(numberOfCustomer: number): number {
         if (numberOfCustomer < 0 || numberOfCustomer > this.systemCapacity) {
             throw new Error(`Number of Customers can't be a negative number or bigger than ${this.systemCapacity}`);
@@ -49,6 +50,7 @@ class MMcK {
 
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
     // the proportion of time the server is busy.
+    // reviewed
     calcUtilizationOfTheServer(numberOfCustomers: number): number {
         return this.arrivalRate / (this.calcServiceRate(numberOfCustomers) * this.numberOfServers);
     }
@@ -56,7 +58,7 @@ class MMcK {
 
     calcPropForCustomersInSystem(numberOfCustomers: number): number {
         if (numberOfCustomers < 0 || numberOfCustomers > this.systemCapacity) {
-            throw new Error("Number of Customers can't be a negative number");
+            throw new Error(`Number of Customers can't be a negative number or bigger than ${this.systemCapacity}`);
         }
         // P0
         else if (numberOfCustomers == 0) {
@@ -93,21 +95,23 @@ class MMcK {
     }
 
     // L
+    // TODO: review the logic
     calcNumberOfCustomerInTheSystem(numberOfCustomers: number) {
         let L: number = this.calcNumberOfCustomerInTheQueue(numberOfCustomers) + this.numberOfServers;
 
         let x: number = 0;
         for (let n: number = 0; n < this.numberOfServers; n++) {
-            x += (this.numberOfServers - n);
+            x += (this.numberOfServers - n)  * ((1 / factorial(n)) *
+                (Math.pow((this.arrivalRate / this.calcServiceRate(n)), n)));
         }
 
-        L -= x * this.calcPropForCustomersInSystem(0) * ((1 / factorial(this.numberOfServers)) *
-            (Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), this.numberOfServers)))
+        L -= x * this.calcPropForCustomersInSystem(0)
 
         return L
     }
 
     // Lq
+    // reviewed
     calcNumberOfCustomerInTheQueue(numberOfCustomers: number): number {
         let Lq: number = 0;
 
@@ -120,17 +124,20 @@ class MMcK {
     }
 
     // W
+    // reviewed
     calcWaitingTimeInTheSystem(numberOfCustomers: number): number {
         return this.calcNumberOfCustomerInTheSystem(numberOfCustomers) / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)));
     }
 
     // Wq
+    // reviewed
     calcWaitingTimeInTheQueue(numberOfCustomers: number): number {
         return this.calcNumberOfCustomerInTheQueue(numberOfCustomers) / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)));
     }
 
     // Ci`
     // TODO: make sure this is valid for this model
+    // reviewed
     calcAverageNumberOfIdleServer(numberOfCustomers: number): number {
         return this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))
     }

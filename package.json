@@ -18,5 +18,8 @@
   "homepage": "https://github.com/AlgoGraph/Queuing-theory#readme",
   "dependencies": {
     "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "jest": "^27.4.4"
   }
 }

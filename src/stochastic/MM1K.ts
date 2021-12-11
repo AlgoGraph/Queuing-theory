@@ -22,10 +22,12 @@
 class MM1K {
     constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number) {}
 
+    // reviewed
     calcUtilizationOfTheServer(): number {
         return this.arrivalRate / this.serviceRate;
     }
 
+    // reviewed
     calcPropForCustomersInSystem(numberOfCustomers: number): number {
         if (numberOfCustomers < 0) {
             throw new Error("Number of Customers can't be a negative number")
@@ -37,7 +39,7 @@ class MM1K {
         }
     }
 
-
+    // reviewed
     calcNumberOfCustomerInTheSystem(): number {
         if (this.calcUtilizationOfTheServer() == 1) {
             return this.systemCapacity / 2;
@@ -51,14 +53,17 @@ class MM1K {
         }
     }
 
+    // reviewed
     calcNumberOfCustomerInTheQueue(): number {
         return this.calcNumberOfCustomerInTheSystem() - (this.calcUtilizationOfTheServer() * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)))
     }
 
+    // reviewed
     calcWaitingTimeInTheSystem(): number {
         return this.calcNumberOfCustomerInTheSystem() / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)))
     }
 
+    // reviewed
     calcWaitingTimeInTheQueue(): number {
         return this.calcWaitingTimeInTheSystem() - (1 / this.serviceRate)
     }

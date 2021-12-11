@@ -28,10 +28,12 @@ class MM1 {
     constructor(private arrivalRate: number, private serviceRate: number) {
     }
 
+    // reviewed
     calcUtilizationOfTheServer(): number {
         return this.arrivalRate / this.serviceRate;
     }
 
+    // reviewed
     calcPropForCustomersInSystem(numberOfCustomers: number): number {
         if (numberOfCustomers < 0) {
             throw new Error("Number of Customers can't be a negative number")
@@ -42,19 +44,22 @@ class MM1 {
         }
     }
 
-
+    // reviewed
     calcNumberOfCustomerInTheSystem(): number {
         return this.arrivalRate / (this.serviceRate - this.arrivalRate)
     }
 
+    // reviewed
     calcNumberOfCustomerInTheQueue(): number {
         return Math.pow(this.arrivalRate, 2) / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 
+    // reviewed
     calcWaitingTimeInTheSystem(): number {
         return 1 / (this.serviceRate - this.arrivalRate);
     }
 
+    // reviewed
     calcWaitingTimeInTheQueue(): number {
         return this.arrivalRate / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }

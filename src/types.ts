@@ -5,3 +5,11 @@ export enum  Models {
     MMc,
     MMcK
 }
+
+export type UserInput = {
+    lambda: string,
+    mu: string,
+    K?: string,
+    c?: string,
+    M?: string
+}

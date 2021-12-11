@@ -16,7 +16,7 @@ function isValidModel(modelType: string): boolean {
 }
 
 
-function displayModel(modelType: string): void {
+export function displayModel(modelType: string): void {
     // add the form
     const modelCard: HTMLElement = document.querySelector("#model-card");
     modelCard.innerHTML = createModelForm(Models[modelType]);
