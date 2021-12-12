@@ -1,62 +1,31 @@
 import {Models} from "../../types.js";
+import ModelField from "../components/ModelField.js";
 
-export default function createModelForm(model: Models): string {
+export default function createModelForm(model: Models): void {
     let form = `
                     <h2>${Models[model]}</h2>
                     <form id="model-form" class="${Models[model]}">
                 `
 
     // all need lambda and Mu
-    form += `
-        <label for="lambda">
-            Arrival Rate "λ"
-        </label>
-            <input id="lambda" type="text" name="lambda">
+    form += ModelField("lambda", "Arrival Rate \"λ\"", false, false);
+    form += ModelField("mu", "Service Rate \"μ\"", false, false);
 
-        <label for="mu">
-            Service Rate "μ"
-        </label>
-            <input id="mu" type="text" name="mu">
-`
     if (model == Models.DD1K) {
-        form += `
-                  <label for="K">
-                    System Capacity "K"
-                  </label>  
-                    <input id="K" type="text" name="K">
-                    
-                  <label for="M">
-                    Number Of Customers At The Start "M" *(optional)
-                  </label>  
-                    <input id="M" type="text" name="M">
-                `
+        form += ModelField("K", "System Capacity \"K\"", false, false);
+        form += ModelField("M", "Number Of Customers At The Start \"M\" *(optional)", false, false);
+
+
     } else if (model == Models.MM1K) {
-        form += `
-                  <label for="K">
-                    System Capacity "K"
-                  </label>  
-                    <input id="K" type="text" name="K">
-                `
+        form += ModelField("K", "System Capacity \"K\"", false, false);
+
     } else if (model == Models.MMc) {
-        form += `
-                  <label for="c">
-                    Number Of Servers "c"
-                  </label>  
-                    <input id="c" type="text" name="c">
-                `
+        form += ModelField("c", "Number Of Servers \"c\"", false, false);
+
 
     } else if (model == Models.MMcK) {
-        form += `
-                  <label for="K">
-                    System Capacity "K"
-                  </label> 
-                    <input id="K" type="text" name="K">
-                  
-                  <label for="c">
-                    Number Of Servers "c"
-                  </label>  
-                    <input id="c" type="text" name="c">
-                `
+        form += ModelField("K", "System Capacity \"K\"", false, false);
+        form += ModelField("c", "Number Of Servers \"c\"", false, false);
     }
 
 
@@ -66,7 +35,9 @@ export default function createModelForm(model: Models): string {
     form += '</form>';
 
 
-    return form;
+    const modelCard: HTMLElement = document.querySelector("#model-card");
+    modelCard.innerHTML = form;
+
 }
 
 

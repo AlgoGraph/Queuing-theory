@@ -2,6 +2,7 @@
 // a pop-up for the visualizer
 import {Models} from "../types.js";
 import modal from "./components/Modal.js";
+import ModelField from "./components/ModelField.js";
 
 
 export default function resultPage(model: Models) {
@@ -15,78 +16,24 @@ export default function resultPage(model: Models) {
 
     // in the MM** models n is needed to calc. some results
     if (model != Models.DD1K) {
-        card_content += `
-            <label for="n">
-                Enter the number of customers in the system "n":
-            </label>
-            <input id="n" name="n" type="text" placeholder="" value="">
-        `
+        card_content += ModelField("n", "Enter the number of customers in the system \"n\":", false);
     }
 
     if (model == Models.DD1K) {
-        card_content += `
-            <label for="Ti">
-                Time Of Occurrence Of The First Balk "Ti"
-            </label>
-            <input id="Ti" name="Ti" type="text" placeholder="" value="" disabled>
-            
-            <label for="n(t)">
-                Number Of Customers In the System "n(t)"
-            </label>    
-            <input id="n(t)" name="n(t)" type="text" placeholder="" value=""  disabled>
-            
-             <label for="Wq(n)">
-                <!-- TODO: number $the value the user inputted ?-->
-                Waiting Time for Customer Number (n) "Wq(n)"
-            </label>    
-            <input id="Wq(n)" name="Wq(n)" type="text" placeholder="" value=""  disabled>
-        `;
+        card_content += ModelField("Ti", "Time Of Occurrence Of The First Balk \"Ti\"");
+        card_content += ModelField("nt", "Number Of Customers In the System \"n(t)\"");
+        card_content += ModelField("Wqn", "Waiting Time for Customer Number (n) \"Wq(n)\"");
     } else {
-        card_content += `
-            <label for="ρ">
-                Utilization Of The Server "ρ"
-            </label>
-            <input id="ρ" name="ρ" type="text" placeholder="" value="" disabled>
-            
-            <label for="Pn">
-                Probability For Customers In System "Pn"
-            </label>    
-            <input id="Pn" name="Pn" type="text" placeholder="" value="" disabled>
-            
-            <label for="L">
-                Number Of Customer In The System "L"
-            </label>
-            <input id="L" name="L" type="text" placeholder="" value="" disabled>
-            
-            <label for="Lq">
-                Number Of Customer In The Queue "Lq"
-            </label>
-            <input id="Lq" name="Lq" type="text" placeholder="" value="" disabled>
-            
-            <!--W-->
-            <label for="W">
-                Waiting Time In The System "W"
-            </label>
-            <input id="W" name="W" type="text" placeholder="" value="" disabled>
-            
-            <!--Wq-->
-            <label for="Wq">
-                Waiting Time In The Queue "Wq"
-            </label>
-            <input id="Wq" name="Wq" type="text" placeholder="" value="" disabled>   
-            <button class="visualise" data-param="Wq">Visualise</button>
-        `
+        card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"");
+        card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"");
+        card_content += ModelField("L", "Number Of Customer In The System \"L\"");
+        card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"");
+        card_content += ModelField("W", "Waiting Time In The System \"W\"");
+        card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"");
+
 
         if (model == Models.MMc || model == Models.MMcK) {
-            // should take the
-            card_content += `
-                <!--Ci'-->
-                <label for="Ci">
-                    Average Number Of Idle Server "Ci'"
-                </label>
-                <input id="Ci" name="Ci" type="text" placeholder="" value="" disabled>
-                
-            `
+            card_content += ModelField("Ci", "Average Number Of Idle Server \"Ci'\"");
         }
     }
 

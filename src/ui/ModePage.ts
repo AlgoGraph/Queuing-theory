@@ -3,6 +3,7 @@ import createModelForm from "./userInput/CreateModelForm.js";
 import handleModelFormSubmit from "./userInput/modelFormHandler.js";
 
 export default function showModel(evt: Event): void {
+    // getting the model name
     const modelType: string = (evt.target as HTMLSelectElement).value;
 
     if (isValidModel(modelType)) {
@@ -17,9 +18,8 @@ function isValidModel(modelType: string): boolean {
 
 
 export function displayModel(modelType: string): void {
-    // add the form
-    const modelCard: HTMLElement = document.querySelector("#model-card");
-    modelCard.innerHTML = createModelForm(Models[modelType]);
+    // display the model form
+     createModelForm(Models[modelType]);
 
     // add the onSubmit function
     handleModelFormSubmit();
