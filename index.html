@@ -2,33 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="index.css">
-    <title>DD1K</title>
+
+    <!--styles-->
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/Modal.css">
+
+    <title>Queue</title>
 </head>
 <body>
-    <form id="user_input">
-        <label for="lambda">
-            Lambda
-            <input id="lambda" type="text" name="lambda">
-        </label>
+    <div id="model-menu"></div>
+    <div id="model-card"></div>
 
-        <label for="mu">
-            mu
-            <input id="mu" type="text" name="mu">
-        </label>
-
-        <label for="time">
-            time
-            <input id="time" type="text" name="time">
-        </label>
-
-
-        <button type="submit">Solve</button>
-    </form>
-
-    <div id="result">
-
+    <div id="Modal" style="display: none">
+        <div class="Modal-content">
+            <span class="hide-Modal">&times;</span>
+            <div id="inserted-content"></div>
+        </div>
     </div>
-    <script src="index.js" type="module"></script>
+
+
+
+    <script src="dist/src/app.js" type="module"></script>
 </body>
 </html>

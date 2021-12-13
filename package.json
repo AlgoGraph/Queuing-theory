@@ -2,9 +2,19 @@
   "name": "section-project",
   "version": "1.0.0",
   "description": "- the plot of slide 23 of first lecture (D3.js)",
-  "main": "index.js",
+  "main": "dist/app.js",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "transform": {
+      "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!variables/.*)"
+    ]
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,6 +27,17 @@
   },
   "homepage": "https://github.com/AlgoGraph/Queuing-theory#readme",
   "dependencies": {
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/mathjs": "^9.4.2",
+    "chart.js": "^3.6.2",
+    "mathjs": "^10.0.0",
     "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.4",
+    "ts-jest": "^27.1.1",
+    "ts-node": "^10.4.0"
   }
 }

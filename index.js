@@ -1,15 +1,18 @@
+
 import DD1K from "./DD1K.js";
 
-
 const userInput = document.querySelector("#user_input");
-
 
 userInput.onsubmit = (e) => {
     e.preventDefault();
 
     clearResult();
 
-    const {lambda, mu, time} = getUserInput();
+    let {lambda, mu, time} = getUserInput();
+    // evaluate any expression in the text
+    [lambda, mu, time] = EvaluteExpresions([lambda, mu, time]);
+
+    console.log([lambda, mu, time]);
 
     if (isValidUserInput(lambda, mu, time)) {
         const result = solveDD1K(lambda, mu, time);
@@ -18,18 +21,11 @@ userInput.onsubmit = (e) => {
 
 }
 
-/*
-    * Form functions
-*/
-function getUserInput() {
-    const lambda = document.querySelector("#lambda").value;
-    const mu = document.querySelector("#mu").value;
-    const time = document.querySelector("#time").value;
-    return {lambda, mu, time};
-}
+
+
 
 function isValidUserInput() {
-    const userInput = Array.from(arguments);
+    let userInput = Array.from(arguments);
 
 
     if (userInput.some(input => input === "")) {
@@ -40,6 +36,7 @@ function isValidUserInput() {
         showError("Make sure all your inputs are numeric values");
         return false;
     }
+
 
     return true;
 }
@@ -62,7 +59,6 @@ function clearResult() {
 function showError(errorMessage) {
     document.querySelector("#result").innerText = errorMessage;
 }
-
 /*
 *   a wrapper around the DD1K's logic ?
 */

@@ -1,8 +1,6 @@
-/*
-        TESTING
- */
-import {DD1k_case1} from "./Deterministic/DD1k_case1";
-import {DD1k_case2} from "./Deterministic/DD1k_case2";
-
-let problem = new DD1k_case2(1,3,4, 7);
-console.log(problem.waiting_time(0));
+export function factorial (n: number): number{
+    if (n==0 || n==1){
+        return 1;
+    }
+    return factorial(n-1)*n;
+}
