@@ -19,9 +19,9 @@
 * W = Lq / lambda + 1 / mu
 *
 * */
-import {factorial} from "../../utils";
+import {factorial} from "../../utils.js";
 
-class MMc {
+export default class MMc {
 
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {
     }
@@ -123,4 +123,10 @@ class MMc {
         return this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))
     }
 
+}
+
+// note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now
+// TODO: remove
+export const createMMc = (arrivalRate: number, serviceRate: number, numberOfServers: number) => {
+    return new MMc(arrivalRate, serviceRate, numberOfServers)
 }

@@ -24,7 +24,8 @@
 *   -
 * */
 
-class MM1 {
+
+export default class MM1 {
     constructor(private arrivalRate: number, private serviceRate: number) {
     }
 
@@ -63,4 +64,10 @@ class MM1 {
     calcWaitingTimeInTheQueue(): number {
         return this.arrivalRate / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
+}
+
+// note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now
+// TODO: remove
+export const createMM1 = (arrivalRate: number, serviceRate: number) => {
+    return new MM1(arrivalRate, serviceRate)
 }

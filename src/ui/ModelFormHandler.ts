@@ -20,10 +20,10 @@ export default function handleModelFormSubmit(): void {
 
         if (userInput.validInput) {
             // show the result page
-            resultPage(Models[form.classList[0]]);
+            resultPage(Models[form.classList[0]], userInput);
 
             // populate all possible fields (fields that doesn`t additional params.)
-            calcResult(userInput, Models[form.classList[0]])
+            // calcResult(userInput, Models[form.classList[0]])
 
             // create a go-back button
             const goBackButton = document.querySelector("#go-to-model-form");

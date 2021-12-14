@@ -27,10 +27,12 @@
 - DD1K: take t in the result page
 - First case: n(t) should alternate -> we now just return "k-1" as a hard coded value
     - process N ( t ) is known as the multiple Poisson
-    - 
+- the "//" in eval
+    - possible solution:
+        - regex to detect it and replace all of them by one
 ## Tasks
 - AE:
-    - 
+    - the validation >> done
 - AM:
     - all the slides examples should pass
     - the design

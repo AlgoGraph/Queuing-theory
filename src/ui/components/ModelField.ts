@@ -1,5 +1,5 @@
 export default function ModelField(fieldId: string, label: string, disabled: boolean = true,
-                                   showVisualiseButton: boolean = true, value: string = ""): string {
+                                   showVisualiseButton: boolean = false, value: string = ""): string {
     let field: string = `
     
         <label for="${fieldId}">

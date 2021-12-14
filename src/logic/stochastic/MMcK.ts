@@ -32,10 +32,10 @@
 *
 *  */
 
-import {factorial} from "../../utils";
+import {factorial} from "../../utils.js";
 
-class MMcK {
-    constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number, private numberOfServers: number) {}
+export default class MMcK {
+    constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number, private systemCapacity: number) {}
 
     // reviewed
     calcServiceRate(numberOfCustomer: number): number {
@@ -142,6 +142,10 @@ class MMcK {
         return this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))
     }
 
+}
 
-
+// note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now
+// TODO: remove
+export const createMMcK = (arrivalRate: number, serviceRate: number, numberOfServers: number, systemCapacity: number) => {
+    return new MMcK(arrivalRate, serviceRate, numberOfServers, systemCapacity)
 }
