@@ -4,11 +4,10 @@ import ModelField from "./components/ModelField.js";
 import DD1k, {createDD1K} from "../logic/Deterministic/DD1K.js";
 import MM1, {createMM1} from "../logic/stochastic/MM1.js";
 import MM1K, {createMM1K} from "../logic/stochastic/MM1K.js";
-import {createMMc} from "../logic/stochastic/MMc.js";
-import {createMMcK} from "../logic/stochastic/MMcK.js";
-
-
-
+import MMc, {createMMc} from "../logic/stochastic/MMc.js";
+import MMcK, {createMMcK} from "../logic/stochastic/MMcK.js";
+import {clearError, showError} from "./userInput/errorHandler.js";
+import {EvaluateExpression} from "./ModelFormHandler.js";
 
 export default function resultPage(model: Models, inputList: UserInput) {
 
@@ -20,14 +19,19 @@ export default function resultPage(model: Models, inputList: UserInput) {
     if (model == Models.DD1K) {
         card_content += ModelField("Ti", "Time Of Occurrence Of The First Balk \"Ti\"");
         // need "t"
-        card_content += ModelField("nt", "Number Of Customers In the System \"n(t)\"", false, true);
+        card_content += ModelField("nt", "Number Of Customers In the System \"n(t)\"",
+            false, true,
+            "t", "Enter the time");
         // need "n"
-        card_content += ModelField("Wqn", "Waiting Time for Customer Number (n) \"Wq(n)\"", false, true);
+        card_content += ModelField("Wqn", "Waiting Time for Customer Number (n) \"Wq(n)\"",
+            false, true,
+            "n", "Enter the number of the customer");
     } else {
         if ([Models.MM1, Models.MM1K].includes(model)) {
             card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"");
             // need n
-            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false, true);
+            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false, true,
+                "Pn_n", "Enter number of customer");
             card_content += ModelField("L", "Number Of Customer In The System \"L\"");
             card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"");
             card_content += ModelField("W", "Waiting Time In The System \"W\"");
@@ -35,13 +39,20 @@ export default function resultPage(model: Models, inputList: UserInput) {
 
         } else if ([Models.MMc, Models.MMcK].includes(model)) {
             // all need n
-            card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"", false, true);
-            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false, true);
-            card_content += ModelField("L", "Number Of Customer In The System \"L\"", false, true);
-            card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"", false, true);
-            card_content += ModelField("W", "Waiting Time In The System \"W\"", false, true);
-            card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"", false, true);
-            card_content += ModelField("Ci", "Average Number Of Idle Server \"Ci'\"", false, true);
+            card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"", false, true,
+            "ρ_n", "Enter number of customer");
+            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false, true,
+                "Pn_n", "Enter number of customer");
+            card_content += ModelField("L", "Number Of Customer In The System \"L\"", false, true,
+                "L_n", "Enter number of customer");
+            card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"", false, true,
+                "Lq_n", "Enter number of customer");
+            card_content += ModelField("W", "Waiting Time In The System \"W\"", false, true,
+                "W_n", "Enter number of customer");
+            card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"", false, true,
+                "Wq_n", "Enter number of customer");
+            card_content += ModelField("Ci", "Average Number Of Idle Server \"Ci'\"", false, true,
+                "Ci_n", "Enter number of customer");
         }
     }
 
@@ -54,14 +65,8 @@ export default function resultPage(model: Models, inputList: UserInput) {
 
     const modelInstance = createModel(model, inputList);
     fillIndependentResults(model, modelInstance);
+    handleResultsWithVariables(model, modelInstance);
 
-
-}
-
-
-function handleVisualiseClick() {
-    const visualiseButtons = document.querySelectorAll(".visualise");
-    visualiseButtons.forEach(button => button.addEventListener("click", (e) => visualise((e.target as HTMLElement).dataset.param)))
 }
 
 // TODO: move to another file
@@ -69,6 +74,12 @@ function visualise(param: string) {
     console.log(param)
     modal.insert_content(param);
     modal.open();
+
+}
+
+function handleVisualiseClick() {
+    const visualiseButtons = document.querySelectorAll(".visualise");
+    visualiseButtons.forEach(button => button.addEventListener("click", (e) => visualise((e.target as HTMLElement).dataset.param)))
 }
 
 function createModel(model: Models, inputList: UserInput): Model {
@@ -102,4 +113,64 @@ function fillIndependentResults(modelType: Models, model: Model) {
 }
 
 
+function handleResultsWithVariables(modelType: Models, model: Model) {
+    if (modelType == Models.DD1K) {
+        handleChangeInvariable(model, "t", "nt");
+        handleChangeInvariable(model, "n", "Wqn");
+    } else if ([Models.MM1, Models.MM1K].includes(modelType)){
+        handleChangeInvariable(model, "Pn_n", "Pn");
+    } else if ([Models.MMc, Models.MMcK].includes(modelType)){
+        handleChangeInvariable(model, "ρ_n", "ρ");
+        handleChangeInvariable(model, "Pn_n", "Pn");
+        handleChangeInvariable(model, "L_n", "L");
+        handleChangeInvariable(model, "Lq_n", "Lq");
+        handleChangeInvariable(model, "W_n", "W");
+        handleChangeInvariable(model, "Wq_n", "Wq");
+        handleChangeInvariable(model, "Ci_n", "Ci");
+    }
+}
 
+function handleChangeInvariable(model: Model, variableId: string, resultId: string) {
+    const variable: HTMLElement = document.querySelector(`#${variableId}`);
+    console.log(variable)
+
+    variable.addEventListener("input", (e) => updateResult(model, variableId, resultId, (e.target as HTMLInputElement).value))
+}
+
+
+function updateResult(model: Model, variableId: string, resultId: string, value) {
+    clearError(variableId);
+
+    value = EvaluateExpression(value);
+    // if the input can't be evaluated into a number
+    if (isNaN(Number(value))) {
+        if (value) {
+            showError(variableId, "please enter a valid mathematical expression");
+        }
+        return;
+    }
+
+    if (Number(value) < 0){
+        showError(variableId, "Field must have a value greater than 0");
+        return;
+    }
+
+    const resultFunctions = {
+        // DD1K
+        nt: (model as DD1k).calcNumberOfCustomers,
+        Wqn: (model as DD1k).calcWaitingTime,
+        // all MM**
+        Pn: (model as MM1 | MM1K | MMc | MMcK).calcPropForCustomersInSystem,
+        // MMc*
+        ρ: (model as MMc | MMcK).calcUtilizationOfTheServer,
+        L: (model as MMc | MMcK).calcNumberOfCustomerInTheSystem,
+        Lq: (model as MMc | MMcK).calcNumberOfCustomerInTheQueue,
+        W: (model as MMc | MMcK).calcWaitingTimeInTheSystem,
+        Wq: (model as MMc | MMcK).calcWaitingTimeInTheQueue,
+        Ci: (model as MMc | MMcK).calcAverageNumberOfIdleServer
+    }
+    console.log(resultId)
+    const result: number = resultFunctions[resultId](value);
+    console.log(result);
+    (document.querySelector(`#${resultId}`) as HTMLInputElement).value = "" + result;
+}

@@ -23,12 +23,12 @@ export default class MM1K {
     constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number) {}
 
     // reviewed
-    calcUtilizationOfTheServer(): number {
+    calcUtilizationOfTheServer = (): number => {
         return this.arrivalRate / this.serviceRate;
     }
 
     // reviewed
-    calcPropForCustomersInSystem(numberOfCustomers: number): number {
+    calcPropForCustomersInSystem = (numberOfCustomers: number): number => {
         if (numberOfCustomers < 0) {
             throw new Error("Number of Customers can't be a negative number")
         } else if (this.calcUtilizationOfTheServer() == 1) {
@@ -40,7 +40,7 @@ export default class MM1K {
     }
 
     // reviewed
-    calcNumberOfCustomerInTheSystem(): number {
+    calcNumberOfCustomerInTheSystem = (): number => {
         if (this.calcUtilizationOfTheServer() == 1) {
             return this.systemCapacity / 2;
         } else {
@@ -54,17 +54,17 @@ export default class MM1K {
     }
 
     // reviewed
-    calcNumberOfCustomerInTheQueue(): number {
+    calcNumberOfCustomerInTheQueue = (): number => {
         return this.calcNumberOfCustomerInTheSystem() - (this.calcUtilizationOfTheServer() * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)))
     }
 
     // reviewed
-    calcWaitingTimeInTheSystem(): number {
+    calcWaitingTimeInTheSystem = (): number => {
         return this.calcNumberOfCustomerInTheSystem() / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)))
     }
 
     // reviewed
-    calcWaitingTimeInTheQueue(): number {
+    calcWaitingTimeInTheQueue = (): number => {
         return this.calcWaitingTimeInTheSystem() - (1 / this.serviceRate)
     }
 

@@ -4,7 +4,7 @@ export default class DD1k {
     // λ, µ, K
     constructor(private arrival_rate: number, private service_rate: number, private systemCapacity: number, private numberOfCustomerAtTheStart: number = 0) {}
 
-    calcTi(): number {
+    calcTi = (): number =>{
         let Ti: number = Math.floor(1 / this.arrival_rate);
         // reviewed
         if (this.arrival_rate > this.service_rate) {
@@ -31,8 +31,11 @@ export default class DD1k {
 
     };
 
-    calcNumberOfCustomers(time: number): number {
+    calcNumberOfCustomers = (time: number): number => {
+        console.log("sss", time)
         // TODO: for case 1 check if t < 1/lambda gives 0
+        console.log(this.arrival_rate)
+        console.log(this.service_rate)
         if (this.arrival_rate > this.service_rate) {
             if (time < 1 / this.arrival_rate) {
                 return 0
@@ -53,6 +56,7 @@ export default class DD1k {
     calcWaitingTime = (numberOfCustomer: number): number => {
         if (this.arrival_rate > this.service_rate) {
             if (numberOfCustomer == 0) {
+                console.log("ssssff", 0)
                 return 0;
             } else if (numberOfCustomer < this.arrival_rate * this.calcTi()) {
                 return ((1 / this.service_rate) - (1 / this.arrival_rate)) * (numberOfCustomer - 1);
@@ -67,6 +71,8 @@ export default class DD1k {
         // reviewed
         else {
             if (numberOfCustomer == 0) {
+                console.log("ssssff", 0)
+
                 return (this.numberOfCustomerAtTheStart - 1) / (2 * this.service_rate);
             } else if (numberOfCustomer < Math.floor(this.arrival_rate * this.calcTi())) {
                 return (this.numberOfCustomerAtTheStart - 1 + numberOfCustomer) * (1 / this.service_rate) -
@@ -77,7 +83,6 @@ export default class DD1k {
         }
 
     }
-
 }
 
 // note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now

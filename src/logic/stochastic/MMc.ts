@@ -23,14 +23,14 @@ import {factorial} from "../../utils.js";
 
 export default class MMc {
 
-    constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {
-    }
+    constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {}
 
     // reviewed
-    calcServiceRate(numberOfCustomer: number): number {
+    calcServiceRate = (numberOfCustomer: number): number => {
         if (numberOfCustomer < 0) {
             throw new Error("Number of Customers can't be a negative number");
         } else if (numberOfCustomer >= 0 && numberOfCustomer < this.numberOfServers) {
+            console.log(this.serviceRate)
             return numberOfCustomer * this.serviceRate;
         } else {
             return this.serviceRate * this.numberOfServers;
@@ -40,18 +40,20 @@ export default class MMc {
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
     // the proportion of time the server is busy.
     // reviewed
-    calcUtilizationOfTheServer(numberOfCustomers: number): number {
+    calcUtilizationOfTheServer = (numberOfCustomers: number): number => {
         return this.arrivalRate / (this.calcServiceRate(numberOfCustomers) * this.numberOfServers);
     }
 
     // reviewed
-    calcPropForCustomersInSystem(numberOfCustomers: number): number {
+    calcPropForCustomersInSystem = (numberOfCustomers: number): number => {
         if (numberOfCustomers < 0) {
             throw new Error("Number of Customers can't be a negative number");
         }
         // P0
         else if (numberOfCustomers == 0) {
+
             let part1: number = 0
+            console.log(this.calcServiceRate(numberOfCustomers))
             for (let n = 0; n < this.numberOfServers; n++) {
                 const x: number = Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), n);
                 const y: number = 1 / factorial(numberOfCustomers);
@@ -89,13 +91,13 @@ export default class MMc {
 
     // L
     // reviewed
-    calcNumberOfCustomerInTheSystem(numberOfCustomers: number) {
+    calcNumberOfCustomerInTheSystem = (numberOfCustomers: number) => {
         return this.calcNumberOfCustomerInTheQueue(numberOfCustomers) + (this.arrivalRate / this.calcServiceRate(numberOfCustomers));
     }
 
     // Lq
     // reviewed
-    calcNumberOfCustomerInTheQueue(numberOfCustomers: number): number {
+    calcNumberOfCustomerInTheQueue = (numberOfCustomers: number): number => {
         return ((Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), this.numberOfServers) *
                     this.arrivalRate * this.calcServiceRate(numberOfCustomers))
                 /
@@ -107,19 +109,20 @@ export default class MMc {
 
     // W
     // reviewed
-    calcWaitingTimeInTheSystem(numberOfCustomers: number): number {
+    calcWaitingTimeInTheSystem = (numberOfCustomers: number): number => {
         return (this.calcWaitingTimeInTheQueue(numberOfCustomers) / this.arrivalRate) + (1 / this.calcServiceRate(numberOfCustomers));
     }
 
     // Wq
     // reviewed
-    calcWaitingTimeInTheQueue(numberOfCustomers: number): number {
+    calcWaitingTimeInTheQueue = (numberOfCustomers: number): number => {
+        console.log("ff", this.arrivalRate)
         return this.calcNumberOfCustomerInTheQueue(numberOfCustomers) / this.arrivalRate;
     }
 
     // Ci`
     // reviewed
-    calcAverageNumberOfIdleServer(numberOfCustomers: number): number {
+    calcAverageNumberOfIdleServer = (numberOfCustomers: number): number => {
         return this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))
     }
 

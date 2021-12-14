@@ -110,7 +110,7 @@ function getInput(inputId: string, required: boolean = true) {
 
 }
 
-function EvaluateExpression(input) {
+export function EvaluateExpression(input) {
     try {
         input = eval(input);
         return input;

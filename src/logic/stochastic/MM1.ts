@@ -26,42 +26,44 @@
 
 
 export default class MM1 {
-    constructor(private arrivalRate: number, private serviceRate: number) {
-    }
+    constructor(private arrivalRate: number, private serviceRate: number) {}
 
     // reviewed
-    calcUtilizationOfTheServer(): number {
+    calcUtilizationOfTheServer = (): number => {
         return this.arrivalRate / this.serviceRate;
     }
 
     // reviewed
-    calcPropForCustomersInSystem(numberOfCustomers: number): number {
+    calcPropForCustomersInSystem = (numberOfCustomers: number): number => {
         if (numberOfCustomers < 0) {
             throw new Error("Number of Customers can't be a negative number")
         } else if (numberOfCustomers == 0) {
+            console.log("dddd")
             return 1 - this.calcUtilizationOfTheServer();
         } else {
+            console.log("dddd")
+
             return Math.pow(this.calcUtilizationOfTheServer(), numberOfCustomers) * (1 - this.calcUtilizationOfTheServer());
         }
     }
 
     // reviewed
-    calcNumberOfCustomerInTheSystem(): number {
+    calcNumberOfCustomerInTheSystem = (): number => {
         return this.arrivalRate / (this.serviceRate - this.arrivalRate)
     }
 
     // reviewed
-    calcNumberOfCustomerInTheQueue(): number {
+    calcNumberOfCustomerInTheQueue = (): number => {
         return Math.pow(this.arrivalRate, 2) / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 
     // reviewed
-    calcWaitingTimeInTheSystem(): number {
+    calcWaitingTimeInTheSystem = (): number => {
         return 1 / (this.serviceRate - this.arrivalRate);
     }
 
     // reviewed
-    calcWaitingTimeInTheQueue(): number {
+    calcWaitingTimeInTheQueue = (): number => {
         return this.arrivalRate / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 }

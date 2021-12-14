@@ -5,7 +5,6 @@
 - add the validations
 
 ### nice addOns
-- for DD1k when lambda and mu are entered > check if lambda > mu and disable M ^_^
 
 
 ## Visualisation
@@ -30,6 +29,10 @@
 - the "//" in eval
     - possible solution:
         - regex to detect it and replace all of them by one
+- MMcK: Lq doesn't depend on n:
+    - so fix the method + the result page for it 
+- for DD1k when lambda and mu are entered > check if lambda > mu and disable M ^_^
+
 ## Tasks
 - AE:
     - the validation >> done
