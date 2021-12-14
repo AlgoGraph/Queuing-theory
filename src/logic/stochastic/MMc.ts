@@ -19,7 +19,7 @@
 * W = Lq / lambda + 1 / mu
 *
 * */
-import {factorial} from "../utils";
+import {factorial} from "../../utils";
 
 class MMc {
 

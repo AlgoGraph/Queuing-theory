@@ -1,7 +1,7 @@
 export function showError(fieldID: string, errorMessage: string) {
+
     const field = document.querySelector(`label[for=${fieldID}] span`);
-    console.log(field)
-    field.innerHTML = errorMessage;
+    field.innerHTML = `<br /> ${errorMessage}`;
 }
 
 export function clearError(fieldID: string) {
@@ -11,7 +11,7 @@ export function clearError(fieldID: string) {
 }
 
 export function clearAllErrors() {
-    const field = document.querySelector(`label span`);
-    console.log(field)
-    field.innerHTML = "";
+    const fieldList = document.querySelectorAll(`label span`);
+
+    fieldList.forEach(field => field.innerHTML = "");
 }

@@ -1,5 +1,5 @@
 import {Models} from "../../types.js";
-import DD1k, {createDD1K} from "../../Deterministic/DD1K.js";
+import DD1k, {createDD1K} from "../../logic/Deterministic/DD1K.js";
 
 
 export default function calcResult(userInput, model: Models) {

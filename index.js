@@ -60,7 +60,7 @@ function showError(errorMessage) {
     document.querySelector("#result").innerText = errorMessage;
 }
 /*
-*   a wrapper around the DD1K's logic ?
+*   a wrapper around the DD1K's src ?
 */
 function solveDD1K(lambda, mu, time) {
     const dd1k = new DD1K({

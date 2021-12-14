@@ -32,7 +32,7 @@
 *
 *  */
 
-import {factorial} from "../utils";
+import {factorial} from "../../utils";
 
 class MMcK {
     constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number, private numberOfServers: number) {}
@@ -95,7 +95,7 @@ class MMcK {
     }
 
     // L
-    // TODO: review the logic
+    // TODO: review the src
     calcNumberOfCustomerInTheSystem(numberOfCustomers: number) {
         let L: number = this.calcNumberOfCustomerInTheQueue(numberOfCustomers) + this.numberOfServers;
 

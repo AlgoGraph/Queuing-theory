@@ -1,6 +1,6 @@
 import {Models} from "../types.js";
 import createModelForm from "./userInput/CreateModelForm.js";
-import handleModelFormSubmit from "./userInput/modelFormHandler.js";
+import handleModelFormSubmit from "./ModelFormHandler.js";
 
 export default function showModel(evt: Event): void {
     // getting the model name
@@ -10,7 +10,6 @@ export default function showModel(evt: Event): void {
         displayModel(modelType);
     }
 }
-
 
 function isValidModel(modelType: string): boolean {
     return modelType in Models;
@@ -23,5 +22,4 @@ export function displayModel(modelType: string): void {
 
     // add the onSubmit function
     handleModelFormSubmit();
-
 }

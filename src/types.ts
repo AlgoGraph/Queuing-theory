@@ -7,6 +7,7 @@ export enum  Models {
 }
 
 export type UserInput = {
+    validInput: boolean,
     lambda: string,
     mu: string,
     K?: string,
