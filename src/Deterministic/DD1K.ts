@@ -1,13 +1,8 @@
-import * as math from 'mathjs'
-
-
 export default class DD1k {
     Ti: number;
 
-
     // λ, µ, K
-    constructor(private arrival_rate: number, private service_rate: number, private systemCapacity: number, private numberOfCustomerAtTheStart: number = 0) {
-    }
+    constructor(private arrival_rate: number, private service_rate: number, private systemCapacity: number, private numberOfCustomerAtTheStart: number = 0) {}
 
     calcTi(): number {
         let Ti: number = Math.floor(1 / this.arrival_rate);
@@ -16,8 +11,8 @@ export default class DD1k {
             while (true) {
 
                 if (Math.floor(this.arrival_rate * Ti) -
-                    Math.floor(this.service_rate * Ti -
-                        this.service_rate / this.arrival_rate)
+                    Math.floor((this.service_rate * Ti -
+                        (this.service_rate / this.arrival_rate)) + 0.0001)
                     == (this.systemCapacity + 1)) {
                     return Ti;
                 }
@@ -42,7 +37,7 @@ export default class DD1k {
             if (time < 1 / this.arrival_rate) {
                 return 0
             } else if (time < this.calcTi()){
-                return Math.floor(this.arrival_rate * time) - Math.floor(this.service_rate * time - this.service_rate / this.arrival_rate);
+                return Math.floor(this.arrival_rate * time) - Math.floor((this.service_rate * time - (this.service_rate / this.arrival_rate)) + 0.0001);
             } else {
                 // TODO: it should alternate ? how and what is the way ?
                 return this.systemCapacity;

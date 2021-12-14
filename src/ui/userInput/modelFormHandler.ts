@@ -3,6 +3,7 @@ import {Models, UserInput} from "../../types.js";
 import InputValidator from "./InputValidator.js";
 import {displayModel} from "../ModePage.js";
 import calcResult from "./ModelResult.js";
+import {showError} from "./errorHandler.js";
 
 export default function handleModelFormSubmit(): void {
     const form: HTMLFormElement = document.querySelector("#model-form");
@@ -14,16 +15,24 @@ export default function handleModelFormSubmit(): void {
 
 
         // TODO : validate the input
+        showError("lambda", "hello");
+        const validInput: boolean = true
 
-        // show the result page
-        resultPage(Models[form.classList[0]]);
+        if (validInput) {
+            // show the result page
+            resultPage(Models[form.classList[0]]);
 
-        // populate all possible fields (fields that doesn`t additional params.)
-        calcResult(userInput, Models[form.classList[0]])
+            // populate all possible fields (fields that doesn`t additional params.)
+            calcResult(userInput, Models[form.classList[0]])
 
-        const goBackButton = document.querySelector("#go-to-model-form");
-        goBackButton.addEventListener("click", () => displayModel(form.classList[0]));
-        console.log(goBackButton)
+            // create a go-back button
+            const goBackButton = document.querySelector("#go-to-model-form");
+            goBackButton.addEventListener("click", () => displayModel(form.classList[0]));
+        }
+
+
+
+
     }
 }
 

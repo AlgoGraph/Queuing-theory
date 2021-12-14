@@ -39,6 +39,10 @@ class Modal {
 // make it a singleton
 const modal = new Modal();
 
+// TODO: remove
+
+//----------------------------------------------
+
 Object.freeze(modal);
 
 export default modal;

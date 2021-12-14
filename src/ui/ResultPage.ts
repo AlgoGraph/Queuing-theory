@@ -16,20 +16,31 @@ export default function resultPage(model: Models) {
 
     // in the MM** models n is needed to calc. some results
     if (model != Models.DD1K) {
-        card_content += ModelField("n", "Enter the number of customers in the system \"n\":", false);
+        card_content += ModelField("n", "Enter the number of customers in the system \"n\":", false, false);
     }
 
     if (model == Models.DD1K) {
-        card_content += ModelField("Ti", "Time Of Occurrence Of The First Balk \"Ti\"");
+        card_content += ModelField("Ti", "Time Of Occurrence Of The First Balk \"Ti\"", false, false);
         card_content += ModelField("nt", "Number Of Customers In the System \"n(t)\"");
         card_content += ModelField("Wqn", "Waiting Time for Customer Number (n) \"Wq(n)\"");
     } else {
-        card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"");
-        card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"");
-        card_content += ModelField("L", "Number Of Customer In The System \"L\"");
-        card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"");
-        card_content += ModelField("W", "Waiting Time In The System \"W\"");
-        card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"");
+        if (model == Models.MM1 || model == Models.MM1K) {
+            card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"", false, false);
+            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false);
+            card_content += ModelField("L", "Number Of Customer In The System \"L\"", false, false);
+            card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"", false, false);
+            card_content += ModelField("W", "Waiting Time In The System \"W\"", false, false);
+            card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"", false, false);
+
+        } else if (model == Models.MMc || model == Models.MMcK) {
+            card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"");
+            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"");
+            card_content += ModelField("L", "Number Of Customer In The System \"L\"");
+            card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"");
+            card_content += ModelField("W", "Waiting Time In The System \"W\"");
+            card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"");
+        }
+
 
 
         if (model == Models.MMc || model == Models.MMcK) {
