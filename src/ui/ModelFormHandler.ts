@@ -18,10 +18,6 @@ export default function handleModelFormSubmit(): void {
         let userInput = getUserInput(form);
 
 
-        // at here I know I have all the required fields as a valid number
-
-        // TODO > validation for the business logic
-
         if (userInput.validInput) {
             // show the result page
             resultPage(Models[form.classList[0]]);
@@ -41,6 +37,8 @@ export default function handleModelFormSubmit(): void {
 /*
     * Form functions
 */
+
+
 function getUserInput(form: HTMLFormElement): UserInput {
     let userInput: UserInput = {
         validInput: true,
@@ -106,6 +104,8 @@ function getInput(inputId: string, required: boolean = true) {
         return "error";
     }
 
+    input = validateInput(inputId, input);
+
     return input;
 
 }
@@ -120,3 +120,29 @@ function EvaluateExpression(input) {
     }
 }
 
+function validateInput(inputId: string, input: string): string {
+    // lambda
+    // mu
+    // c
+    // K
+    // M
+    switch (inputId) {
+        case "lambda":
+        case "mu":
+        case "c":
+        case "K":
+            if (Number(input) <= 0){
+                showError(inputId, "Field must have a value greater than 0");
+                return "error";
+            }
+            return input;
+        case "M":
+            if (input && Number(input) <= 0){
+                showError(inputId, "Field must have a value greater than or equal to 0");
+                return "error";
+            }
+            return input;
+        default:
+            return input;
+    }
+}
