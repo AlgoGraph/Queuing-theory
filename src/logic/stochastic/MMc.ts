@@ -19,7 +19,7 @@
 * W = Lq / lambda + 1 / mu
 *
 * */
-import {factorial} from "../../utils.js";
+import {factorial} from "../../utils";
 
 export default class MMc {
 

@@ -1,5 +1,5 @@
-import {Models} from "../../types.js";
-import ModelField from "../components/ModelField.js";
+import {Models} from "../../types";
+import ModelField from "../components/ModelField";
 
 export default function createModelForm(model: Models): void {
     // 1. start with the model name

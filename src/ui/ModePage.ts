@@ -1,6 +1,6 @@
-import {Models} from "../types.js";
-import createModelForm from "./userInput/CreateModelForm.js";
-import handleModelFormSubmit from "./ModelFormHandler.js";
+import {Models} from "../types";
+import createModelForm from "./userInput/CreateModelForm";
+import handleModelFormSubmit from "./ModelFormHandler";
 
 export default function showModel(evt: Event): void {
     // getting the model name

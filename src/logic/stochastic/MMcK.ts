@@ -32,7 +32,7 @@
 *
 *  */
 
-import {factorial} from "../../utils.js";
+import {factorial} from "../../utils";
 
 export default class MMcK {
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number, private systemCapacity: number) {}

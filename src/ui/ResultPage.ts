@@ -1,13 +1,13 @@
-import {Model, Models, UserInput} from "../types.js";
-import modal from "./components/Modal.js";
-import ModelField from "./components/ModelField.js";
-import DD1k, {createDD1K} from "../logic/Deterministic/DD1K.js";
-import MM1, {createMM1} from "../logic/stochastic/MM1.js";
-import MM1K, {createMM1K} from "../logic/stochastic/MM1K.js";
-import MMc, {createMMc} from "../logic/stochastic/MMc.js";
-import MMcK, {createMMcK} from "../logic/stochastic/MMcK.js";
-import {clearError, showError} from "./userInput/errorHandler.js";
-import {EvaluateExpression} from "./ModelFormHandler.js";
+import {Model, Models, UserInput} from "../types";
+import modal from "./components/Modal";
+import ModelField from "./components/ModelField";
+import DD1k, {createDD1K} from "../logic/Deterministic/DD1K";
+import MM1, {createMM1} from "../logic/stochastic/MM1";
+import MM1K, {createMM1K} from "../logic/stochastic/MM1K";
+import MMc, {createMMc} from "../logic/stochastic/MMc";
+import MMcK, {createMMcK} from "../logic/stochastic/MMcK";
+import {clearError, showError} from "./userInput/errorHandler";
+import {EvaluateExpression} from "./ModelFormHandler";
 
 export default function resultPage(model: Models, inputList: UserInput) {
 
