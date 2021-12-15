@@ -32,7 +32,7 @@
 - MMcK: Lq doesn't depend on n:
     - so fix the method + the result page for it 
 - for DD1k when lambda and mu are entered > check if lambda > mu and disable M ^_^
-
+- eval doesn't handle zeros on the left > ex. "03" 
 ## Tasks
 - AE:
     - the validation >> done

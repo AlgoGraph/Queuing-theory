@@ -14,6 +14,7 @@
     ]
   },
   "scripts": {
+    "start": "npm run serve",
     "build": "webpack",
     "serve": "webpack serve",
     "test": "jest",

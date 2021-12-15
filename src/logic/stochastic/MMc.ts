@@ -21,7 +21,7 @@
 * */
 import {factorial} from "../../utils";
 
-export default class MMc {
+export class MMc {
 
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {}
 

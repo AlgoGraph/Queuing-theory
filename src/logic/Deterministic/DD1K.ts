@@ -1,4 +1,4 @@
-export  class DD1k {
+export class DD1k {
     Ti: number;
 
     // λ, µ, K
