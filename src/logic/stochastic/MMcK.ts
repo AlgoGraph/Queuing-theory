@@ -37,17 +37,14 @@ import {factorial} from "../../utils";
 export class MMcK {
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number, private systemCapacity: number) {}
 
-    // reviewed
-    calcServiceRate(numberOfCustomer: number): number {
-            return this.serviceRate;
-    }
+
 
 
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
     // the proportion of time the server is busy.
     // reviewed
-    calcUtilizationOfTheServer = (numberOfCustomers: number): number => {
-        return this.arrivalRate / (this.calcServiceRate(numberOfCustomers) * this.numberOfServers);
+    calcUtilizationOfTheServer = (): number => {
+        return this.arrivalRate / (this.serviceRate * this.numberOfServers);
     }
 
 
@@ -60,29 +57,29 @@ export class MMcK {
         else if (numberOfCustomers == 0) {
             let part1: number = 0
             for (let n = 0; n < this.numberOfServers; n++) {
-                const x: number = Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), n);
+                const x: number = Math.pow((this.arrivalRate / this.serviceRate), n);
                 const y: number = 1 / factorial(n);
                 part1 += x * y;
             }
 
             let part2: number = (1 / factorial(this.numberOfServers)) *
-                (Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), this.numberOfServers));
+                (Math.pow((this.arrivalRate / this.serviceRate), this.numberOfServers));
 
-            if (this.calcUtilizationOfTheServer(numberOfCustomers) == 1){
+            if (this.calcUtilizationOfTheServer() == 1){
                 part2 *= this.systemCapacity - this.numberOfServers + 1;
             } else {
-                part2 *= ((1 - Math.pow(this.calcUtilizationOfTheServer(numberOfCustomers),
-                    this.systemCapacity - this.numberOfServers + 1)) / (1 - this.calcUtilizationOfTheServer(numberOfCustomers)))
+                part2 *= ((1 - Math.pow(this.calcUtilizationOfTheServer(),
+                    this.systemCapacity - this.numberOfServers + 1)) / (1 - this.calcUtilizationOfTheServer()))
             }
 
             return  Math.pow((part1 + part2), -1);
 
         } else {
             if (numberOfCustomers < this.numberOfServers) {
-                return Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), numberOfCustomers) *
+                return Math.pow((this.arrivalRate / this.serviceRate), numberOfCustomers) *
                     (1 / factorial(numberOfCustomers)) * this.calcPropForCustomersInSystem(0);
             } else {
-                return Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), numberOfCustomers) *
+                return Math.pow((this.arrivalRate / this.serviceRate), numberOfCustomers) *
                     (1 / factorial(this.numberOfServers)) *
                     (1 / Math.pow(this.numberOfServers, (numberOfCustomers - this.numberOfServers))) *
                     this.calcPropForCustomersInSystem(0);
@@ -91,14 +88,13 @@ export class MMcK {
     }
 
     // L
-    // TODO: review the src
-    calcNumberOfCustomerInTheSystem = (numberOfCustomers: number) => {
-        let L: number = this.calcNumberOfCustomerInTheQueue(numberOfCustomers) + this.numberOfServers;
+    calcNumberOfCustomerInTheSystem = () => {
+        let L: number = this.calcNumberOfCustomerInTheQueue() + this.numberOfServers;
 
         let x: number = 0;
         for (let n: number = 0; n < this.numberOfServers; n++) {
             x += (this.numberOfServers - n)  * ((1 / factorial(n)) *
-                (Math.pow((this.arrivalRate / this.calcServiceRate(n)), n)));
+                (Math.pow((this.arrivalRate / this.serviceRate), n)));
         }
 
         L -= x * this.calcPropForCustomersInSystem(0)
@@ -109,7 +105,7 @@ export class MMcK {
 
     // Lq
     // reviewed
-    calcNumberOfCustomerInTheQueue = (numberOfCustomers: number): number => {
+    calcNumberOfCustomerInTheQueue = (): number => {
         let Lq: number = 0;
 
         for (let n: number = this.numberOfServers + 1; n <= this.systemCapacity; n++) {
@@ -122,23 +118,22 @@ export class MMcK {
 
     // W
     // reviewed
-    calcWaitingTimeInTheSystem = (numberOfCustomers: number): number => {
-        return this.calcNumberOfCustomerInTheSystem(numberOfCustomers) / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)));
+    calcWaitingTimeInTheSystem = (): number => {
+        return this.calcNumberOfCustomerInTheSystem() / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)));
     }
 
     // Wq
     // reviewed
-    calcWaitingTimeInTheQueue = (numberOfCustomers: number): number => {
-        return this.calcNumberOfCustomerInTheQueue(numberOfCustomers) / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)));
+    calcWaitingTimeInTheQueue = (): number => {
+        return this.calcNumberOfCustomerInTheQueue() / (this.arrivalRate * (1 - this.calcPropForCustomersInSystem(this.systemCapacity)));
     }
 
     // Ci`
     // TODO: make sure this is valid for this model
     // reviewed
-    calcAverageNumberOfIdleServer = (numberOfCustomers: number): number => {
-        return this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))
+    calcAverageNumberOfIdleServer = (): number => {
+        return this.numberOfServers - (this.arrivalRate / this.serviceRate)
     }
-
 }
 
 // note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now

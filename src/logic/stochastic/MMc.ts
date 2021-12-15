@@ -25,16 +25,13 @@ export class MMc {
 
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {}
 
-    // reviewed
-    calcServiceRate(numberOfCustomer: number): number {
-        return this.serviceRate;
-    }
+
 
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
     // the proportion of time the server is busy.
     // reviewed
     calcUtilizationOfTheServer = (numberOfCustomers: number): number => {
-        return this.arrivalRate / (this.calcServiceRate(numberOfCustomers) * this.numberOfServers);
+        return this.arrivalRate / (this.serviceRate * this.numberOfServers);
     }
 
     // reviewed
@@ -47,7 +44,7 @@ export class MMc {
 
             let part1: number = 0
             for (let n = 0; n < this.numberOfServers; n++) {
-                const x: number = Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), n);
+                const x: number = Math.pow((this.arrivalRate / this.serviceRate), n);
                 const y: number = 1 / factorial(n);
                 part1 += x * y;
             }
@@ -56,24 +53,24 @@ export class MMc {
 
             if (this.calcUtilizationOfTheServer(numberOfCustomers) < 1) {
                 part2 =
-                    (this.numberOfServers * Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)),
+                    (this.numberOfServers * Math.pow((this.arrivalRate / this.serviceRate),
                         this.numberOfServers))
                     /
-                    (factorial(this.numberOfServers) * (this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))))
+                    (factorial(this.numberOfServers) * (this.numberOfServers - (this.arrivalRate / this.serviceRate)))
             } else {
                 part2 = (1 / factorial(this.numberOfServers)) *
-                    (Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), this.numberOfServers)) *
-                    ((this.numberOfServers * this.calcServiceRate(numberOfCustomers)) /
-                        ((this.numberOfServers * this.calcServiceRate(numberOfCustomers)) - this.arrivalRate))
+                    (Math.pow((this.arrivalRate / this.serviceRate), this.numberOfServers)) *
+                    ((this.numberOfServers * this.serviceRate) /
+                        ((this.numberOfServers * this.serviceRate) - this.arrivalRate))
             }
 
             return Math.pow((part1 + part2), -1);
         } else {
             if (numberOfCustomers < this.numberOfServers) {
-                return Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), numberOfCustomers) *
+                return Math.pow((this.arrivalRate / this.serviceRate), numberOfCustomers) *
                     (1 / factorial(numberOfCustomers)) * this.calcPropForCustomersInSystem(0);
             } else {
-                return Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), numberOfCustomers) *
+                return Math.pow((this.arrivalRate / this.serviceRate), numberOfCustomers) *
                     (1 / factorial(numberOfCustomers)) *
                     (1 / Math.pow(this.numberOfServers, (numberOfCustomers - this.numberOfServers))) *
                     this.calcPropForCustomersInSystem(0);
@@ -83,39 +80,39 @@ export class MMc {
 
     // L
     // reviewed
-    calcNumberOfCustomerInTheSystem = (numberOfCustomers: number) => {
-        return this.calcNumberOfCustomerInTheQueue(numberOfCustomers) + (this.arrivalRate / this.calcServiceRate(numberOfCustomers));
+    calcNumberOfCustomerInTheSystem = () => {
+        return this.calcNumberOfCustomerInTheQueue() + (this.arrivalRate / this.serviceRate);
     }
 
     // Lq
     // reviewed
-    calcNumberOfCustomerInTheQueue = (numberOfCustomers: number): number => {
-        return ((Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), this.numberOfServers) *
-                    this.arrivalRate * this.calcServiceRate(numberOfCustomers))
+    calcNumberOfCustomerInTheQueue = (): number => {
+        return ((Math.pow((this.arrivalRate / this.serviceRate), this.numberOfServers) *
+                    this.arrivalRate * this.serviceRate)
                 /
                 (factorial(this.numberOfServers - 1) *
-                    Math.pow(((this.numberOfServers * this.calcServiceRate(numberOfCustomers)) - this.arrivalRate), 2)))
+                    Math.pow(((this.numberOfServers * this.serviceRate) - this.arrivalRate), 2)))
                 *
                 this.calcPropForCustomersInSystem(0);
     }
 
     // W
     // reviewed
-    calcWaitingTimeInTheSystem = (numberOfCustomers: number): number => {
-        return (this.calcNumberOfCustomerInTheQueue(numberOfCustomers) / this.arrivalRate) + (1 / this.calcServiceRate(numberOfCustomers));
+    calcWaitingTimeInTheSystem = (): number => {
+        return (this.calcNumberOfCustomerInTheQueue() / this.arrivalRate) + (1 / this.serviceRate);
     }
 
     // Wq
     // reviewed
-    calcWaitingTimeInTheQueue = (numberOfCustomers: number): number => {
+    calcWaitingTimeInTheQueue = (): number => {
         console.log("ff", this.arrivalRate)
-        return this.calcNumberOfCustomerInTheQueue(numberOfCustomers) / this.arrivalRate;
+        return this.calcNumberOfCustomerInTheQueue() / this.arrivalRate;
     }
 
     // Ci`
     // reviewed
-    calcAverageNumberOfIdleServer = (numberOfCustomers: number): number => {
-        return this.numberOfServers - (this.arrivalRate / this.calcServiceRate(numberOfCustomers))
+    calcAverageNumberOfIdleServer = (): number => {
+        return this.numberOfServers - (this.arrivalRate / this.serviceRate)
     }
 
 }
