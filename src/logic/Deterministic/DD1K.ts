@@ -1,4 +1,4 @@
-export default class DD1k {
+export  class DD1k {
     Ti: number;
 
     // λ, µ, K
@@ -45,7 +45,7 @@ export default class DD1k {
         }
         // TODO: what about when both are equal ?
         else {
-            return this.numberOfCustomerAtTheStart + Math.floor(this.arrival_rate * time) - Math.floor(this.service_rate * time);
+            return this.numberOfCustomerAtTheStart + Math.floor(this.arrival_rate * time + 0.0001) - Math.floor(this.service_rate * time + 0.0001);
         }
 
     };

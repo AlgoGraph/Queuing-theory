@@ -19,22 +19,17 @@
 * W = Lq / lambda + 1 / mu
 *
 * */
-import {factorial} from "../../utils.js";
+import {factorial} from "../../utils";
 
-export default class MMc {
+export  class MMc {
 
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number) {
     }
 
     // reviewed
     calcServiceRate(numberOfCustomer: number): number {
-        if (numberOfCustomer < 0) {
-            throw new Error("Number of Customers can't be a negative number");
-        } else if (numberOfCustomer >= 0 && numberOfCustomer < this.numberOfServers) {
-            return numberOfCustomer * this.serviceRate;
-        } else {
-            return this.serviceRate * this.numberOfServers;
-        }
+        return this.serviceRate;
+
     }
 
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
@@ -54,7 +49,7 @@ export default class MMc {
             let part1: number = 0
             for (let n = 0; n < this.numberOfServers; n++) {
                 const x: number = Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), n);
-                const y: number = 1 / factorial(numberOfCustomers);
+                const y: number = 1 / factorial(n);
                 part1 += x * y;
             }
 
@@ -108,7 +103,7 @@ export default class MMc {
     // W
     // reviewed
     calcWaitingTimeInTheSystem(numberOfCustomers: number): number {
-        return (this.calcWaitingTimeInTheQueue(numberOfCustomers) / this.arrivalRate) + (1 / this.calcServiceRate(numberOfCustomers));
+        return (this.calcNumberOfCustomerInTheQueue(numberOfCustomers) / this.arrivalRate) + (1 / this.calcServiceRate(numberOfCustomers));
     }
 
     // Wq

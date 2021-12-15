@@ -19,7 +19,7 @@
 *
 *
 * */
-export default class MM1K {
+export  class MM1K {
     constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number) {}
 
     // reviewed

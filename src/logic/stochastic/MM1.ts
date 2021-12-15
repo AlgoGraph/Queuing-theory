@@ -25,7 +25,7 @@
 * */
 
 
-export default class MM1 {
+export class MM1 {
     constructor(private arrivalRate: number, private serviceRate: number) {
     }
 
