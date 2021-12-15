@@ -25,8 +25,9 @@
 * */
 
 
-export default class MM1 {
-    constructor(private arrivalRate: number, private serviceRate: number) {}
+export class MM1 {
+    constructor(private arrivalRate: number, private serviceRate: number) {
+    }
 
     // reviewed
     calcUtilizationOfTheServer = (): number => {
@@ -53,17 +54,17 @@ export default class MM1 {
     }
 
     // reviewed
-    calcNumberOfCustomerInTheQueue = (): number => {
+    calcNumberOfCustomerInTheQueue(): number {
         return Math.pow(this.arrivalRate, 2) / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 
     // reviewed
-    calcWaitingTimeInTheSystem = (): number => {
+    calcWaitingTimeInTheSystem(): number {
         return 1 / (this.serviceRate - this.arrivalRate);
     }
 
     // reviewed
-    calcWaitingTimeInTheQueue = (): number => {
+    calcWaitingTimeInTheQueue(): number {
         return this.arrivalRate / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 }

@@ -38,15 +38,10 @@ export default class MMcK {
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number, private systemCapacity: number) {}
 
     // reviewed
-    calcServiceRate = (numberOfCustomer: number): number => {
-        if (numberOfCustomer < 0 || numberOfCustomer > this.systemCapacity) {
-            throw new Error(`Number of Customers can't be a negative number or bigger than ${this.systemCapacity}`);
-        } else if (numberOfCustomer >= 0 && numberOfCustomer < this.numberOfServers) {
-            return numberOfCustomer * this.serviceRate;
-        } else {
-            return this.serviceRate * this.numberOfServers;
-        }
+    calcServiceRate(numberOfCustomer: number): number {
+            return this.serviceRate;
     }
+
 
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
     // the proportion of time the server is busy.
@@ -66,7 +61,7 @@ export default class MMcK {
             let part1: number = 0
             for (let n = 0; n < this.numberOfServers; n++) {
                 const x: number = Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), n);
-                const y: number = 1 / factorial(numberOfCustomers);
+                const y: number = 1 / factorial(n);
                 part1 += x * y;
             }
 
@@ -88,7 +83,7 @@ export default class MMcK {
                     (1 / factorial(numberOfCustomers)) * this.calcPropForCustomersInSystem(0);
             } else {
                 return Math.pow((this.arrivalRate / this.calcServiceRate(numberOfCustomers)), numberOfCustomers) *
-                    (1 / factorial(numberOfCustomers)) *
+                    (1 / factorial(this.numberOfServers)) *
                     (1 / Math.pow(this.numberOfServers, (numberOfCustomers - this.numberOfServers))) *
                     this.calcPropForCustomersInSystem(0);
             }
@@ -109,6 +104,7 @@ export default class MMcK {
         L -= x * this.calcPropForCustomersInSystem(0)
 
         return L
+
     }
 
     // Lq
