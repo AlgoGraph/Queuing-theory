@@ -27,6 +27,8 @@ export default function createModelForm(model: Models): void {
     form += `        
             <button type="submit">Create Model</button>
             `
+
+    // close the form
     form += '</form>';
 
     // add the form to the page

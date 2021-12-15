@@ -18,7 +18,7 @@ function isValidModel(modelType: string): boolean {
 
 export function displayModel(modelType: string): void {
     // display the model form
-     createModelForm(Models[modelType]);
+    createModelForm(Models[modelType]);
 
     // add the onSubmit function
     handleModelFormSubmit();

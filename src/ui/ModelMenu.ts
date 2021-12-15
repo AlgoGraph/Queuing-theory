@@ -22,8 +22,8 @@ export default function modelMenu(): void {
     `
 
     // onChange => show the right model
-    const modelMenu = document.querySelector("#models-names")
-    modelMenu.addEventListener("change", showModel)
+    const modelMenu = document.querySelector("#models-names");
+    modelMenu.addEventListener("change", showModel);
 }
 
 

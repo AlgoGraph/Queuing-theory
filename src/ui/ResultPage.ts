@@ -8,6 +8,7 @@ import {MMc, createMMc} from "../logic/stochastic/MMc";
 import {MMcK, createMMcK} from "../logic/stochastic/MMcK";
 import {clearError, showError} from "./userInput/errorHandler";
 import {EvaluateExpression} from "./ModelFormHandler";
+import {visualise} from "../Visualization";
 
 export default function resultPage(model: Models, inputList: UserInput) {
 
@@ -20,40 +21,24 @@ export default function resultPage(model: Models, inputList: UserInput) {
         card_content += ModelField("Ti", "Time Of Occurrence Of The First Balk \"Ti\"");
         // need "t"
         card_content += ModelField("nt", "Number Of Customers In the System \"n(t)\"",
-            false, true,
-            "t", "Enter the time");
+            true, true, "t", "Enter the time");
         // need "n"
         card_content += ModelField("Wqn", "Waiting Time for Customer Number (n) \"Wq(n)\"",
-            false, true,
-            "n", "Enter the number of the customer");
-    } else {
-        if ([Models.MM1, Models.MM1K].includes(model)) {
+            true, true, "n", "Enter the number of the customer");
+    } else if ([Models.MM1, Models.MM1K, Models.MMc, Models.MMcK].includes(model)) {
             card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"");
             // need n
-            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false, true,
-                "Pn_n", "Enter number of customer");
+            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", true,
+                true, "Pn_n", "Enter number of customer");
+
             card_content += ModelField("L", "Number Of Customer In The System \"L\"");
+
             card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"");
+
             card_content += ModelField("W", "Waiting Time In The System \"W\"");
+
             card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"");
 
-        } else if ([Models.MMc, Models.MMcK].includes(model)) {
-            // all need n
-            card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"", false, true,
-            "ρ_n", "Enter number of customer");
-            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", false, true,
-                "Pn_n", "Enter number of customer");
-            card_content += ModelField("L", "Number Of Customer In The System \"L\"", false, true,
-                "L_n", "Enter number of customer");
-            card_content += ModelField("Lq", "Number Of Customer In The Queue \"Lq\"", false, true,
-                "Lq_n", "Enter number of customer");
-            card_content += ModelField("W", "Waiting Time In The System \"W\"", false, true,
-                "W_n", "Enter number of customer");
-            card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"", false, true,
-                "Wq_n", "Enter number of customer");
-            card_content += ModelField("Ci", "Average Number Of Idle Server \"Ci'\"", false, true,
-                "Ci_n", "Enter number of customer");
-        }
     }
 
     card_content += `
@@ -67,20 +52,16 @@ export default function resultPage(model: Models, inputList: UserInput) {
     fillIndependentResults(model, modelInstance);
     handleResultsWithVariables(model, modelInstance);
 
+    // handle click on the visualise button
+    handleVisualiseClick(modelInstance);
 }
 
-// TODO: move to another file
-function visualise(param: string) {
-    console.log(param)
-    modal.insert_content(param);
-    modal.open();
 
-}
-
-function handleVisualiseClick() {
+function handleVisualiseClick(model: Model) {
     const visualiseButtons = document.querySelectorAll(".visualise");
-    visualiseButtons.forEach(button => button.addEventListener("click", (e) => visualise((e.target as HTMLElement).dataset.param)))
+    visualiseButtons.forEach(button => button.addEventListener("click", (e) => visualise(model, (e.target as HTMLElement).dataset.param)))
 }
+
 
 function createModel(model: Models, inputList: UserInput): Model {
     switch (model){
@@ -97,18 +78,21 @@ function createModel(model: Models, inputList: UserInput): Model {
     }
 }
 
+
 function fillIndependentResults(modelType: Models, model: Model) {
     if (modelType == Models.DD1K) {
         const dd1k: DD1k = model as DD1k
         (document.querySelector("input[id='Ti']") as HTMLInputElement).value = "" + dd1k.calcTi()
 
-    } else if ([Models.MM1, Models.MM1K].includes(modelType)){
-            const MM1_: MM1 | MM1K = model as MM1 | MM1K
-            (document.querySelector("input[id='ρ']") as HTMLInputElement).value = "" + MM1_.calcUtilizationOfTheServer();
-            (document.querySelector("input[id='L']") as HTMLInputElement).value = "" + MM1_.calcNumberOfCustomerInTheSystem();
-            (document.querySelector("input[id='Lq']") as HTMLInputElement).value = "" + MM1_.calcNumberOfCustomerInTheQueue();
-            (document.querySelector("input[id='W']") as HTMLInputElement).value = "" + MM1_.calcWaitingTimeInTheSystem();
-            (document.querySelector("input[id='Wq']") as HTMLInputElement).value = "" + MM1_.calcWaitingTimeInTheQueue();
+    } else if ([Models.MM1, Models.MM1K, Models.MMc, Models.MMcK].includes(modelType)){
+            const MM_: MM1 | MM1K | MMc | MMcK = model as MM1 | MM1K | MMc | MMcK;
+
+            (document.querySelector("input[id='ρ']") as HTMLInputElement).value = "" + MM_.calcUtilizationOfTheServer();
+            (document.querySelector("input[id='L']") as HTMLInputElement).value = "" + MM_.calcNumberOfCustomerInTheSystem();
+            (document.querySelector("input[id='Lq']") as HTMLInputElement).value = "" + MM_.calcNumberOfCustomerInTheQueue();
+            (document.querySelector("input[id='W']") as HTMLInputElement).value = "" + MM_.calcWaitingTimeInTheSystem();
+            (document.querySelector("input[id='Wq']") as HTMLInputElement).value = "" + MM_.calcWaitingTimeInTheQueue();
+
     }
 }
 
@@ -117,18 +101,11 @@ function handleResultsWithVariables(modelType: Models, model: Model) {
     if (modelType == Models.DD1K) {
         handleChangeInvariable(model, "t", "nt");
         handleChangeInvariable(model, "n", "Wqn");
-    } else if ([Models.MM1, Models.MM1K].includes(modelType)){
+    } else if ([Models.MM1, Models.MM1K, Models.MMc, Models.MMcK].includes(modelType)){
         handleChangeInvariable(model, "Pn_n", "Pn");
-    } else if ([Models.MMc, Models.MMcK].includes(modelType)){
-        handleChangeInvariable(model, "ρ_n", "ρ");
-        handleChangeInvariable(model, "Pn_n", "Pn");
-        handleChangeInvariable(model, "L_n", "L");
-        handleChangeInvariable(model, "Lq_n", "Lq");
-        handleChangeInvariable(model, "W_n", "W");
-        handleChangeInvariable(model, "Wq_n", "Wq");
-        handleChangeInvariable(model, "Ci_n", "Ci");
     }
 }
+
 
 function handleChangeInvariable(model: Model, variableId: string, resultId: string) {
     const variable: HTMLElement = document.querySelector(`#${variableId}`);

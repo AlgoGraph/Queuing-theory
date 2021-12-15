@@ -17,28 +17,21 @@ export default function handleModelFormSubmit(): void {
         // get the input form the field + try to evaluate it
         let userInput = getUserInput(form);
 
-
         if (userInput.validInput) {
             // show the result page
             resultPage(Models[form.classList[0]], userInput);
-
-            // populate all possible fields (fields that doesn`t additional params.)
-            // calcResult(userInput, Models[form.classList[0]])
 
             // create a go-back button
             const goBackButton = document.querySelector("#go-to-model-form");
             goBackButton.addEventListener("click", () => displayModel(form.classList[0]));
         }
-
     }
 }
 
 
 /*
-    * Form functions
+* Form functions
 */
-
-
 function getUserInput(form: HTMLFormElement): UserInput {
     let userInput: UserInput = {
         validInput: true,
@@ -48,35 +41,24 @@ function getUserInput(form: HTMLFormElement): UserInput {
 
     userInput.lambda = getInput("lambda");
 
-    if (userInput.lambda == "error") {
-        userInput.validInput = false;
-    }
+    userInput.validInput = checkIfError(userInput.lambda);
 
     userInput.mu = getInput("mu");
-    if (userInput.mu == "error") {
-        userInput.validInput = false;
-    }
-
+    userInput.validInput = checkIfError(userInput.mu);
 
     if ([Models[Models.DD1K]].includes(form.classList[0])) {
         userInput.M = getInput("M", false);
-        if (userInput.M == "error") {
-            userInput.validInput = false;
-        }
+        userInput.validInput = checkIfError(userInput.M);
     }
 
     if (form.classList[0] == Models[Models.MMc] || form.classList[0] == Models[Models.MMcK]) {
         userInput.c = getInput("c");
-        if (userInput.c == "error") {
-            userInput.validInput = false;
-        }
+        userInput.validInput = checkIfError(userInput.c);
     }
 
     if ([Models[Models.MM1K], Models[Models.MMcK], Models[Models.DD1K]].includes(form.classList[0])) {
         userInput.K = getInput("K");
-        if (userInput.K == "error") {
-            userInput.validInput = false;
-        }
+        userInput.validInput = checkIfError(userInput.K);
     }
 
     return userInput;
@@ -110,6 +92,8 @@ function getInput(inputId: string, required: boolean = true) {
 
 }
 
+
+// TODO: handle the "//" and "03"
 export function EvaluateExpression(input) {
     try {
         input = eval(input);
@@ -120,12 +104,8 @@ export function EvaluateExpression(input) {
     }
 }
 
+
 function validateInput(inputId: string, input: string): string {
-    // lambda
-    // mu
-    // c
-    // K
-    // M
     switch (inputId) {
         case "lambda":
         case "mu":
@@ -145,4 +125,10 @@ function validateInput(inputId: string, input: string): string {
         default:
             return input;
     }
+}
+
+
+function checkIfError(value: string): boolean {
+    return value != "error";
+
 }
