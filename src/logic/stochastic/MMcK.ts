@@ -37,7 +37,9 @@ import {factorial} from "../../utils";
 export class MMcK {
     constructor(private arrivalRate: number, private serviceRate: number, private numberOfServers: number, private systemCapacity: number) {}
 
-
+    getSystemCapacity = () => {
+        return this.systemCapacity;
+    }
 
 
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or

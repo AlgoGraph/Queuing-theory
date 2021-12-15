@@ -22,6 +22,9 @@
 export  class MM1K {
     constructor(private arrivalRate: number, private serviceRate: number, private systemCapacity: number) {}
 
+    getSystemCapacity = () => {
+        return this.systemCapacity;
+    }
     // reviewed
     calcUtilizationOfTheServer = (): number => {
         return this.arrivalRate / this.serviceRate;
