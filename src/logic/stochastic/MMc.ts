@@ -30,7 +30,7 @@ export class MMc {
     // ρ = λ/(cµ): utilization of the server; also the probability that the server is busy or
     // the proportion of time the server is busy.
     // reviewed
-    calcUtilizationOfTheServer = (numberOfCustomers: number): number => {
+    calcUtilizationOfTheServer = (): number => {
         return this.arrivalRate / (this.serviceRate * this.numberOfServers);
     }
 
@@ -49,9 +49,9 @@ export class MMc {
                 part1 += x * y;
             }
 
-            let part2: number = 0;
+            let part2: number;
 
-            if (this.calcUtilizationOfTheServer(numberOfCustomers) < 1) {
+            if (this.calcUtilizationOfTheServer() < 1) {
                 part2 =
                     (this.numberOfServers * Math.pow((this.arrivalRate / this.serviceRate),
                         this.numberOfServers))
