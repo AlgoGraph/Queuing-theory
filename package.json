@@ -14,7 +14,12 @@
     ]
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "DD1K": "jest .\\DD1K.test.ts",
+    "MM1": "jest .\\MM1.test.ts",
+    "MM1K": "jest .\\MM1K.test.ts",
+    "MMCK": "jest .\\MMCK.test.ts",
+    "MMC": "jest .\\MMC.test.ts"
   },
   "repository": {
     "type": "git",
