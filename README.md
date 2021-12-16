@@ -37,5 +37,7 @@
 - AE:
     - the validation >> done
 - AM:
-    - all the slides examples should pass
+    - Redo stuff you have deleted by mistake
+    - reorganize testcases in describe
     - the design
+    - add the problem of WQ,mu,
