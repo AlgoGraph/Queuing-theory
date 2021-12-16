@@ -25,13 +25,13 @@ export function visualise(model: Model, param: string) {
     new Chart(ctx, {
         type: 'line',
         data: {
+            // TODO: remove ("" + )
             labels: (("" + Array(count)).split(',').map(function () {
                 return this[0]++
             }, [1])),
             datasets: [{
                 label: `${label}`,
                 data: data,
-                // TODO<refactor>: any is not the best solution > check the correct type
                 backgroundColor: ([
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -69,7 +69,7 @@ function calcData(model: Model, param: string): { data: number[], label: string,
         nt: {
             data: [],
             label: "Number of customer in the system",
-            count: () => (model instanceof DD1k) ? (model as DD1k).calcTi() + 10 : 20,
+            count: (model instanceof DD1k) ? (model as DD1k).calcTi() + 10 : 20,
             calcFunction: (model as DD1k).calcNumberOfCustomers
         },
         Wqn: {

@@ -1,12 +1,7 @@
 ## Tasks
 - AE:
-    - eval validations:
-        - the "//" in eval (Done)
-            - possible solution:
-                - regex to detect it and replace all of them by one
-        - eval doesn't handle zeros on the left > ex. "03" (Done)
-    - Visualization refactoring  (Done)
-    - for DD1k when lambda and mu are entered > check if lambda > mu and disable M ^_^ (Done)
+   - the error bug in handleM...
+   - DD1K crash the app
 - AM:
     - Redo stuff you have deleted by mistake
     - reorganize testcases in describe

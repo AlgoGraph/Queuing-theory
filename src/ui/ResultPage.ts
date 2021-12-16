@@ -27,9 +27,6 @@ export default function resultPage(model: Models, inputList: UserInput) {
             true, true, "n", "Enter the number of the customer");
     } else if ([Models.MM1, Models.MM1K, Models.MMc, Models.MMcK].includes(model)) {
             card_content += ModelField("ρ", "Utilization Of The Server \"ρ\"");
-            // need n
-            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", true,
-                true, "Pn_n", "Enter number of customer");
 
             card_content += ModelField("L", "Number Of Customer In The System \"L\"");
 
@@ -38,7 +35,9 @@ export default function resultPage(model: Models, inputList: UserInput) {
             card_content += ModelField("W", "Waiting Time In The System \"W\"");
 
             card_content += ModelField("Wq", "Waiting Time In The Queue \"Wq\"");
-
+            // need n
+            card_content += ModelField("Pn", "Probability For Customers In System \"Pn\"", true,
+                true, "Pn_n", "Enter number of customer");
     }
 
     card_content += `

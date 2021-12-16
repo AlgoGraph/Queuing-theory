@@ -4,7 +4,7 @@ import handleModelFormSubmit from "./ModelFormHandler";
 
 export default function showModel(evt: Event): void {
     // getting the model name
-    const modelType: string = (evt.target as HTMLSelectElement).value;
+    const modelType: string = (evt.target as HTMLSelectElement).id;
 
     if (isValidModel(modelType)) {
         displayModel(modelType);

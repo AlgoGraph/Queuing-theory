@@ -1,50 +1,19 @@
 * {
     padding: 0;
     margin: 0;
+    font-family: Calibri, serif;
 }
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label, button[type=submit]{
-    display: block;
-    margin: 0 auto;
-    padding-bottom: 10px;
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
-input {
-    display: block;
-    padding: 10px;
+body {
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    background-color: #222831;
 }
 
-button[type=submit] {
-    background-color: green;
-    color: white;
-    /*margin: 10px;*/
-    padding: 10px;
-    border-radius: 5px;
-}
-
-button[type=submit]:hover {
-    cursor: pointer;
-}
-
-div {
-
-    background-color: black;
-    color: white;
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
-}
-
-
-/*
-* the create-form-model
-*/
-
-#go-to-menu {
-    display: block;
-   padding: 10px;
-}

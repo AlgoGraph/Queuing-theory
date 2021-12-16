@@ -1,0 +1,43 @@
+#model-menu {
+    background-color: #eee;
+    padding: 20px;
+    height: 100%;
+}
+
+#Menu {
+    grid-column: 1/2;
+    grid-template-columns: 1fr 2fr;
+}
+
+h2 {
+    text-align: center;
+}
+
+li {
+    padding: 10px 0;
+    margin: 10px 0;
+    list-style-type: none;
+    text-align: center;
+    user-select: none;
+}
+
+li[id] {
+    border-radius: 5px;
+    background-color: #00ADB5;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+li[id]:hover {
+    background-color: #9ad6d9;
+}
+
+.modelType {
+    font-size: 22px;
+    color: black;
+    font-weight: bold;
+    opacity: .7;
+    border-radius: 5px;
+
+}
+

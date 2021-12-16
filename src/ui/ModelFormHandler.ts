@@ -93,12 +93,10 @@ export function getInput(inputId: string, required: boolean = true) {
 }
 
 
-// TODO: handle the "//" and "03"
 export function EvaluateExpression(input: string) {
     // // the // bug
     let regex: RegExp = new RegExp('//(/)*');
     if (regex.test(input)) {
-        console.log("sss")
         input = "please enter a valid mathematical expression";
         return input;
     }
@@ -129,7 +127,7 @@ function validateInput(inputId: string, input: string): string {
             }
             return input;
         case "M":
-            if (input && Number(input) <= 0){
+            if (input && Number(input) < 0){
                 showError(inputId, "Field must have a value greater than or equal to 0");
                 return "error";
             }
