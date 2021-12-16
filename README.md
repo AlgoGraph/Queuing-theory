@@ -1,12 +1,12 @@
 ## Tasks
 - AE:
     - eval validations:
-        - the "//" in eval
+        - the "//" in eval (Done)
           - possible solution:
               - regex to detect it and replace all of them by one
-        - eval doesn't handle zeros on the left > ex. "03"
-    - Visualization refactoring  
-    - for DD1k when lambda and mu are entered > check if lambda > mu and disable M ^_^
+        - eval doesn't handle zeros on the left > ex. "03" (Done)
+    - Visualization refactoring  (Done)
+    - for DD1k when lambda and mu are entered > check if lambda > mu and disable M ^_^ (Done)
 - AM:
     - all the slides examples should pass
     - the design

@@ -1,5 +1,7 @@
 import {Models} from "../../types";
 import ModelField from "../components/ModelField";
+import {getInput} from "../ModelFormHandler";
+import {isNumber} from "chart.js/helpers";
 
 export default function createModelForm(model: Models): void {
     // 1. start with the model name
@@ -34,6 +36,36 @@ export default function createModelForm(model: Models): void {
     // add the form to the page
     const modelCard: HTMLElement = document.querySelector("#model-card");
     modelCard.innerHTML = form;
+
+    // challenge for myself
+    /*
+    * for DD1K listen to change in lambda and mu
+    *   if both are valid values
+    *       check if lambda > mu
+    *           clear M and disable it
+    *               ...good luck ^v^
+    *
+    */
+    if (model == Models.DD1K) {
+        handleMForDD1K()
+    }
+}
+
+function handleMForDD1K() {
+    (document.querySelector("input[id='lambda']") as HTMLInputElement).addEventListener('input', disableM);
+    (document.querySelector("input[id='mu']") as HTMLInputElement).addEventListener('input', disableM);
+
+}
+
+function disableM() {
+    let lambda: number = Number(getInput("lambda"));
+    let mu: number = Number(getInput("mu"));
+
+    if (isNumber(lambda) && isNumber(mu)) {
+        const M: HTMLInputElement = (document.querySelector("input[id='M']") as HTMLInputElement);
+        M.value = "";
+        M.disabled = lambda > mu;
+    }
 }
 
 

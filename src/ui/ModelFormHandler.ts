@@ -65,7 +65,7 @@ function getUserInput(form: HTMLFormElement): UserInput {
 }
 
 
-function getInput(inputId: string, required: boolean = true) {
+export function getInput(inputId: string, required: boolean = true) {
     let input: string = (<HTMLInputElement>document.querySelector(`#${inputId}`)).value;
 
     // if empty > check if the field is required, else evaluate it
@@ -94,7 +94,19 @@ function getInput(inputId: string, required: boolean = true) {
 
 
 // TODO: handle the "//" and "03"
-export function EvaluateExpression(input) {
+export function EvaluateExpression(input: string) {
+    // // the // bug
+    let regex: RegExp = new RegExp('//(/)*');
+    if (regex.test(input)) {
+        console.log("sss")
+        input = "please enter a valid mathematical expression";
+        return input;
+    }
+
+    // the 0 on the left > remove the zeros + leading w
+    // note: the g flag make it work on all occurrence
+    input = input.replace(/^0+|\s+0+/g,'');
+
     try {
         input = eval(input);
         return input;
