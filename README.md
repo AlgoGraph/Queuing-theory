@@ -8,3 +8,6 @@
     - reorganize testcases in describe
     - the design
     - add the problem of WQ,mu,
+    - readme
+    - design
+    - حتة الاربعة بتاعة K 

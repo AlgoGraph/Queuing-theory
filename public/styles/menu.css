@@ -1,9 +1,12 @@
 #model-menu {
-    background-color: #eee;
+    color: #f4f1de;
+    background-color: #f4f1de;
     padding: 20px;
     height: 100%;
 }
-
+#model-menu h2 {
+    color: #3d405b;
+}
 #Menu {
     grid-column: 1/2;
     grid-template-columns: 1fr 2fr;
@@ -23,13 +26,13 @@ li {
 
 li[id] {
     border-radius: 5px;
-    background-color: #00ADB5;
+    background-color: #3d405b;
     font-size: 20px;
     cursor: pointer;
 }
 
 li[id]:hover {
-    background-color: #9ad6d9;
+    background-color: #81b29a;
 }
 
 .modelType {

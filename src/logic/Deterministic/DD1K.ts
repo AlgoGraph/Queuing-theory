@@ -42,12 +42,13 @@ export class DD1k {
             } else if (time < this.calcTi()){
                 return Math.floor(this.arrival_rate * time) - Math.floor((this.service_rate * time - (this.service_rate / this.arrival_rate)) + 0.0001);
             } else {
-                // TODO: it should alternate ? how and what is the way ?
-                return this.systemCapacity;
+                return 1;
             }
         }
-        // TODO: what about when both are equal ?
-        else {
+        else if(time > this.calcTi()){
+            return 1;
+        }
+        else{
             return this.numberOfCustomerAtTheStart + Math.floor(this.arrival_rate * time + 0.0001) - Math.floor(this.service_rate * time + 0.0001);
         }
 

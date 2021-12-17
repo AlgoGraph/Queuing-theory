@@ -10,9 +10,7 @@ describe("MM1", () => {
         //need to be explained
         expect(mm1.calcPropForCustomersInSystem(0)- 1 / 6).toBeLessThan(0.00001);
     });
-});
 
-describe("MM1", () => {
     test("slide 4 page 13 A /", () => {
         const mm1 = new MM1(1 / 10, 1 /8 );
         expect(mm1.calcNumberOfCustomerInTheSystem() - 4 ).toBeLessThan(0.00001);
@@ -20,9 +18,7 @@ describe("MM1", () => {
         expect(mm1.calcWaitingTimeInTheQueue() - 32 ).toBeLessThan(0.00001);
 
     });
-});
 
-describe("MM1", () => {
     test("slide 4 page 13 B /", () => {
         const mm1 = new MM1(1 / 9, 1 /8 );
         expect(mm1.calcNumberOfCustomerInTheSystem() - 8 ).toBeLessThan(0.00001);
@@ -30,33 +26,27 @@ describe("MM1", () => {
         expect(mm1.calcWaitingTimeInTheQueue() - 64 ).toBeLessThan(0.00001);
 
     });
-});
 
-describe("MM1", () => {
-    test("slide 4 page 16 ", () => {
-        //Need to be Discused
-    });
-});
-
-describe("MM1", () => {
     test("slide 4 page 18  ", () => {
         const mm1 = new MM1(1 / 5, 1 / 2 );
         expect(mm1.calcUtilizationOfTheServer()).toBe(2 / 5);
-        //B point need to be discused
-
     });
-});
 
-describe("MM1K", () => {
+    test("slide 4 page 18  ", () => {
+        const mm1 = new MM1(18 / 60 , 1 / 2 );
+        expect( Math.abs(mm1.calcWaitingTimeInTheQueue()) - 3).toBeLessThan(0.0001);
+    });
+
+
     test("slide 6 page 12 A/", () => {
         const mm1 = new MM1(3 / 10, 1 / 3);
         expect(mm1.calcWaitingTimeInTheQueue()- 27  ).toBeLessThan(0.0001);
     });
-});
 
-describe("MM1K", () => {
     test("slide 6 page 12 A/", () => {
         const mm1 = new MM1(3 / 4, 1 / 3);
         expect(mm1.calcWaitingTimeInTheQueue()- 9  ).toBeLessThan(0.0001);
     });
+
 });
+
