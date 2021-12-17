@@ -54,7 +54,7 @@ Container:nth-child(odd) {
     color: red;
     position: relative;
     text-align: left;
-
+    user-select: none;
     top: 70px;
 }
 button {
