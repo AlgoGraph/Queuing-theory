@@ -58,8 +58,8 @@ function handleMForDD1K() {
 }
 
 function disableM() {
-    let lambda: number = Number(getInput("lambda"));
-    let mu: number = Number(getInput("mu"));
+    let lambda: number = Number(getInput("lambda", true, false));
+    let mu: number = Number(getInput("mu", true, false));
 
     if (isNumber(lambda) && isNumber(mu)) {
         const M: HTMLInputElement = (document.querySelector("input[id='M']") as HTMLInputElement);

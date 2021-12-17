@@ -65,6 +65,7 @@ function handleVisualiseClick(model: Model) {
 function createModel(model: Models, inputList: UserInput): Model {
     switch (model){
         case Models.DD1K:
+            console.log(inputList.K);
             return createDD1K(Number(inputList.lambda), Number(inputList.mu), Number(inputList.K));
         case Models.MM1:
             return createMM1(Number(inputList.lambda), Number(inputList.mu));
@@ -81,16 +82,16 @@ function createModel(model: Models, inputList: UserInput): Model {
 function fillIndependentResults(modelType: Models, model: Model) {
     if (modelType == Models.DD1K) {
         const dd1k: DD1k = model as DD1k
-        (document.querySelector("input[id='Ti']") as HTMLInputElement).value = "" + dd1k.calcTi()
+        (document.querySelector("input[id='Ti']") as HTMLInputElement).value = "" + dd1k.calcTi().toFixed(2)
 
     } else if ([Models.MM1, Models.MM1K, Models.MMc, Models.MMcK].includes(modelType)){
             const MM_: MM1 | MM1K | MMc | MMcK = model as MM1 | MM1K | MMc | MMcK;
 
-            (document.querySelector("input[id='ρ']") as HTMLInputElement).value = "" + MM_.calcUtilizationOfTheServer();
-            (document.querySelector("input[id='L']") as HTMLInputElement).value = "" + MM_.calcNumberOfCustomerInTheSystem();
-            (document.querySelector("input[id='Lq']") as HTMLInputElement).value = "" + MM_.calcNumberOfCustomerInTheQueue();
-            (document.querySelector("input[id='W']") as HTMLInputElement).value = "" + MM_.calcWaitingTimeInTheSystem();
-            (document.querySelector("input[id='Wq']") as HTMLInputElement).value = "" + MM_.calcWaitingTimeInTheQueue();
+            (document.querySelector("input[id='ρ']") as HTMLInputElement).value = "" + MM_.calcUtilizationOfTheServer().toFixed(2);
+            (document.querySelector("input[id='L']") as HTMLInputElement).value = "" + MM_.calcNumberOfCustomerInTheSystem().toFixed(2);
+            (document.querySelector("input[id='Lq']") as HTMLInputElement).value = "" + MM_.calcNumberOfCustomerInTheQueue().toFixed(2);
+            (document.querySelector("input[id='W']") as HTMLInputElement).value = "" + MM_.calcWaitingTimeInTheSystem().toFixed(2);
+            (document.querySelector("input[id='Wq']") as HTMLInputElement).value = "" + MM_.calcWaitingTimeInTheQueue().toFixed(2);
 
     }
 }
@@ -145,8 +146,7 @@ function updateResult(model: Model, variableId: string, resultId: string, value)
         Wq: (model as MMc | MMcK).calcWaitingTimeInTheQueue,
         Ci: (model as MMc | MMcK).calcAverageNumberOfIdleServer
     }
-    console.log(resultId)
     const result: number = resultFunctions[resultId](value);
     console.log(result);
-    (document.querySelector(`#${resultId}`) as HTMLInputElement).value = "" + result;
+    (document.querySelector(`#${resultId}`) as HTMLInputElement).value = "" + result.toFixed(2);
 }

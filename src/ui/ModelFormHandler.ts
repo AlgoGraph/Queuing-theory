@@ -17,6 +17,7 @@ export default function handleModelFormSubmit(): void {
         // get the input form the field + try to evaluate it
         let userInput = getUserInput(form);
 
+        console.log(userInput.validInput);
         if (userInput.validInput) {
             // show the result page
             resultPage(Models[form.classList[0]], userInput);
@@ -40,32 +41,32 @@ function getUserInput(form: HTMLFormElement): UserInput {
     };
 
     userInput.lambda = getInput("lambda");
-
-    userInput.validInput = checkIfError(userInput.lambda);
+    userInput.validInput = checkIfError(userInput.lambda, userInput.validInput);
 
     userInput.mu = getInput("mu");
-    userInput.validInput = checkIfError(userInput.mu);
+
+    userInput.validInput = checkIfError(userInput.mu, userInput.validInput);
 
     if ([Models[Models.DD1K]].includes(form.classList[0])) {
         userInput.M = getInput("M", false);
-        userInput.validInput = checkIfError(userInput.M);
+        userInput.validInput = checkIfError(userInput.M, userInput.validInput);
     }
 
     if (form.classList[0] == Models[Models.MMc] || form.classList[0] == Models[Models.MMcK]) {
         userInput.c = getInput("c");
-        userInput.validInput = checkIfError(userInput.c);
+        userInput.validInput = checkIfError(userInput.c, userInput.validInput);
     }
 
-    if ([Models[Models.MM1K], Models[Models.MMcK], Models[Models.DD1K]].includes(form.classList[0])) {
+    if (form.classList[0] == Models[Models.MM1K] || form.classList[0] == Models[Models.MMcK] || form.classList[0] == Models[Models.DD1K]) {
         userInput.K = getInput("K");
-        userInput.validInput = checkIfError(userInput.K);
+        userInput.validInput = checkIfError(userInput.K, userInput.validInput);
     }
 
     return userInput;
 }
 
 
-export function getInput(inputId: string, required: boolean = true) {
+export function getInput(inputId: string, required: boolean = true, handleError: boolean = true) {
     let input: string = (<HTMLInputElement>document.querySelector(`#${inputId}`)).value;
 
     // if empty > check if the field is required, else evaluate it
@@ -73,7 +74,7 @@ export function getInput(inputId: string, required: boolean = true) {
         input = EvaluateExpression(input);
     } else {
         if (required) {
-            showError(inputId, "Field is required: please enter a value.");
+            handleError ? showError(inputId, "Field is required: please enter a valid value.") : null;
             // TODO: think of better way to tell the calling function that there was an error
             return "error";
         }
@@ -81,13 +82,14 @@ export function getInput(inputId: string, required: boolean = true) {
 
     // if the input can't be evaluated into a number
     if (isNaN(Number(input))) {
-        showError(inputId, input);
+        handleError ? showError(inputId, input) : null;
         // TODO: think of better way to tell the calling function that there was an error
         return "error";
     }
 
-    input = validateInput(inputId, input);
+    input = validateInput(inputId, input, handleError);
 
+    console.log(inputId, input)
     return input;
 
 }
@@ -115,20 +117,20 @@ export function EvaluateExpression(input: string) {
 }
 
 
-function validateInput(inputId: string, input: string): string {
+function validateInput(inputId: string, input: string, handleError: boolean = true): string {
     switch (inputId) {
         case "lambda":
         case "mu":
         case "c":
         case "K":
             if (Number(input) <= 0){
-                showError(inputId, "Field must have a value greater than 0");
+                handleError ? showError(inputId, "Field must have a value greater than 0") : null;
                 return "error";
             }
             return input;
         case "M":
             if (input && Number(input) < 0){
-                showError(inputId, "Field must have a value greater than or equal to 0");
+                handleError ? showError(inputId, "Field must have a value greater than or equal to 0") : null;
                 return "error";
             }
             return input;
@@ -138,7 +140,6 @@ function validateInput(inputId: string, input: string): string {
 }
 
 
-function checkIfError(value: string): boolean {
-    return value != "error";
-
+function checkIfError(value: string, validInput: boolean): boolean {
+    return !validInput ? false : value != "error";
 }
