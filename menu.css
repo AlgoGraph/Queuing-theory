@@ -1,0 +1,46 @@
+#model-menu {
+    color: #f4f1de;
+    background-color: #f4f1de;
+    padding: 20px;
+    height: 100%;
+}
+#model-menu h2 {
+    color: #3d405b;
+}
+#Menu {
+    grid-column: 1/2;
+    grid-template-columns: 1fr 2fr;
+}
+
+h2 {
+    text-align: center;
+}
+
+li {
+    padding: 10px 0;
+    margin: 10px 0;
+    list-style-type: none;
+    text-align: center;
+    user-select: none;
+}
+
+li[id] {
+    border-radius: 5px;
+    background-color: #3d405b;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+li[id]:hover {
+    background-color: #81b29a;
+}
+
+.modelType {
+    font-size: 22px;
+    color: black;
+    font-weight: bold;
+    opacity: .7;
+    border-radius: 5px;
+
+}
+
