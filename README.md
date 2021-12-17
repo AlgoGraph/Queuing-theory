@@ -6,9 +6,9 @@ This project calculate different performance matrices for multiple queuing model
 <br />
 <a href="https://algograph.github.io/Queuing-theory/">View Demo</a>
 ·
-<a href="https://github.com/ahmedhem/AlgoGraph/issues">Report Bug</a>
+<a href="https://github.com/AlgoGraph/Queuing-theory/issues">Report Bug</a>
 ·
-<a href="https://github.com/ahmedhem/AlgoGraph/issues">Request Feature</a>
+<a href="https://github.com/AlgoGraph/Queuing-theory/issues">Request Feature</a>
 </p>
 
 ---
