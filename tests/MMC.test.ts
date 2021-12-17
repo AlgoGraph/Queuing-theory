@@ -9,9 +9,7 @@ describe("MMC", () => {
         expect( mmc.calcWaitingTimeInTheSystem() - 28.88).toBeLessThan(0.01);
         expect( mmc.calcAverageNumberOfIdleServer() ).toBe(1);
     });
-});
 
-describe("MMC", () => {
     test("slide 6 page 12 B/", () => {
         const mmc = new MMc(11 / 20, 1 / 3, 2);
         expect( mmc.calcPropForCustomersInSystem(0) -0.95).toBeLessThan(0.01);
