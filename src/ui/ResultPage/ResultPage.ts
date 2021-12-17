@@ -1,14 +1,14 @@
-import {Model, Models, UserInput} from "../types";
-import modal from "./components/Modal";
-import ModelField from "./components/ModelField";
-import {DD1k, createDD1K} from "../logic/Deterministic/DD1K";
-import {MM1, createMM1} from "../logic/stochastic/MM1";
-import {MM1K, createMM1K} from "../logic/stochastic/MM1K";
-import {MMc, createMMc} from "../logic/stochastic/MMc";
-import {MMcK, createMMcK} from "../logic/stochastic/MMcK";
-import {clearError, showError} from "./userInput/errorHandler";
-import {EvaluateExpression} from "./ModelFormHandler";
-import {visualise} from "../Visualization";
+import {Model, Models, UserInput} from "../../types";
+import modal from "../components/Modal";
+import ModelField from "../components/ModelField";
+import {DD1k, createDD1K} from "../../logic/Deterministic/DD1K";
+import {MM1, createMM1} from "../../logic/stochastic/MM1";
+import {MM1K, createMM1K} from "../../logic/stochastic/MM1K";
+import {MMc, createMMc} from "../../logic/stochastic/MMc";
+import {MMcK, createMMcK} from "../../logic/stochastic/MMcK";
+import {clearError, showError} from "../InputForm/errorHandler";
+import {EvaluateExpression} from "../InputForm/ModelFormHandler";
+import {visualise} from "../../Visualization";
 
 export default function resultPage(model: Models, inputList: UserInput) {
 

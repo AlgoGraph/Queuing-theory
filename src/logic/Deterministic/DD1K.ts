@@ -42,7 +42,7 @@ export class DD1k {
             } else if (time < this.calcTi()){
                 return Math.floor(this.arrival_rate * time) - Math.floor((this.service_rate * time - (this.service_rate / this.arrival_rate)) + 0.0001);
             } else {
-                return 1;
+                return this.systemCapacity ;
             }
         }
         else if(time > this.calcTi()){

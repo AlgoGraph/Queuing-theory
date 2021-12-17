@@ -1,6 +1,6 @@
 import {Models} from "../../types";
 import ModelField from "../components/ModelField";
-import {getInput} from "../ModelFormHandler";
+import {getInput} from "./ModelFormHandler";
 import {isNumber} from "chart.js/helpers";
 
 export default function createModelForm(model: Models): void {

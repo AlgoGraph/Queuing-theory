@@ -1,8 +1,7 @@
-import resultPage from "./ResultPage";
-import {Models, UserInput} from "../types";
-import {displayModel} from "./ModePage";
-import calcResult from "./userInput/ModelResult";
-import {clearAllErrors, showError} from "./userInput/errorHandler";
+import resultPage from "../ResultPage/ResultPage";
+import {Models, UserInput} from "../../types";
+import {displayModel} from "../ModeMenu/ModelMenuHandler";
+import {clearAllErrors, showError} from "./errorHandler";
 
 export default function handleModelFormSubmit(): void {
     const form: HTMLFormElement = document.querySelector("#model-form");

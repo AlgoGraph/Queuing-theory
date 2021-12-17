@@ -1,4 +1,4 @@
-import showModel from "./ModePage";
+import showModel from "./ModelMenuHandler";
 
 export default function modelMenu(): void {
     const menu = document.querySelector("#model-menu");

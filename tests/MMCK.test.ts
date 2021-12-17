@@ -26,7 +26,7 @@ describe("MMCK", () => {
         const mmck = new MMcK(3, 1 / 2, 4, 12);
         expect(mmck.calcPropForCustomersInSystem(0) - 0.00024).toBeLessThan(0.0001);
         expect(mmck.calcPropForCustomersInSystem(12) - 0.332).toBeLessThan(0.01);//0.337
-        expect(mmck.calcNumberOfCustomerInTheQueue()).toBe(0.001);
+        expect(mmck.calcNumberOfCustomerInTheQueue() - 6.14).toBeLessThan(0.01);
     });
 });
 
