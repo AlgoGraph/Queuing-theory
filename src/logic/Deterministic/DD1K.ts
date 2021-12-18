@@ -1,3 +1,5 @@
+import {LOOP_LIMIT} from "../../app";
+
 export class DD1k {
     Ti: number;
 
@@ -6,10 +8,12 @@ export class DD1k {
 
     calcTi = (): number =>{
         let Ti: number = Math.floor(1 / this.arrival_rate);
+
+        let count = 0;
+
         // reviewed
         if (this.arrival_rate > this.service_rate) {
             while (true) {
-
                 if (Math.floor(this.arrival_rate * Ti) -
                     Math.floor((this.service_rate * Ti -
                         (this.service_rate / this.arrival_rate)) + 0.0001)
@@ -17,15 +21,27 @@ export class DD1k {
                     return Ti;
                 }
                 Ti++;
+
+                count++;
+                // hot fix
+                if (count > LOOP_LIMIT) {
+                    return -1;
+                }
             }
         } else {
             while (true) {
+                // handle the infinite loop
                 if (this.numberOfCustomerAtTheStart + Math.floor(this.arrival_rate * Ti) -
                     Math.floor(this.service_rate * Ti)
                     == 0) {
                     return Ti;
                 }
                 Ti++;
+                count++;
+                // hot fix
+                if (count > LOOP_LIMIT) {
+                    return -1;
+                }
             }
         }
 
@@ -89,6 +105,7 @@ export class DD1k {
 // note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now
 // TODO: remove
 export const createDD1K = (arrival_rate: number, service_rate: number, systemCapacity: number, numberOfCustomerAtTheStart: number = 0) => {
+    console.log("create: ", numberOfCustomerAtTheStart);
     return new DD1k(arrival_rate, service_rate, systemCapacity, numberOfCustomerAtTheStart)
 }
 
