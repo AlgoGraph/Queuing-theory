@@ -65,8 +65,7 @@ function handleVisualiseClick(model: Model) {
 function createModel(model: Models, inputList: UserInput): Model {
     switch (model){
         case Models.DD1K:
-            console.log(inputList.K);
-            return createDD1K(Number(inputList.lambda), Number(inputList.mu), Number(inputList.K));
+            return createDD1K(Number(inputList.lambda), Number(inputList.mu), Number(inputList.K), Number(inputList.M));
         case Models.MM1:
             return createMM1(Number(inputList.lambda), Number(inputList.mu));
         case Models.MM1K:
