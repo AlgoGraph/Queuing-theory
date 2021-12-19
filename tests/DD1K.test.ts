@@ -1,15 +1,17 @@
-import {DD1k} from "../src/logic/Deterministic/DD1K";
+import {createDD1K} from "../src/logic/Deterministic/DD1K";
+import {createMM1} from "../src/logic/stochastic/MM1";
 
 
 describe("DD1K first case: lambda > mu", () => {
     test("slide 1 page 22", () => {
-        const dd1k = new DD1k(1 / 3, 1 / 5, 4);
+
+        const dd1k = createDD1K(1 / 3, 1 / 5, 4);
         expect(dd1k.calcNumberOfCustomers(11)).toBe(2);
         expect(dd1k.calcNumberOfCustomers(20)).toBe(3);
     });
 
     test("slide 2 page 7", () => {
-        const dd1k = new DD1k(1 / 4, 1 / 6, 4);
+        const dd1k = createDD1K(1 / 4, 1 / 6, 4);
         expect(dd1k.calcTi()).toBe(44);
 
         expect(dd1k.calcNumberOfCustomers(3)).toBe(0);
@@ -21,7 +23,7 @@ describe("DD1K first case: lambda > mu", () => {
     });
 
     test("slide 2 page 15", () => {
-        const dd1k = new DD1k(1 / 4, 1 / 8, 4);
+        const dd1k = createDD1K(1 / 4, 1 / 8, 4);
         expect(dd1k.calcTi()).toBe(32);
 
         expect(dd1k.calcNumberOfCustomers(3)).toBe(0);
@@ -37,7 +39,7 @@ describe("DD1K first case: lambda > mu", () => {
     });
 
     test("slide 2 page 25", () => {
-        const dd1k = new DD1k(1 / 3, 1 , 4, 7);
+        const dd1k = createDD1K(1 / 3, 1 , 4, 7);
         expect(dd1k.calcTi()).toBe(10);
 
         expect(dd1k.calcNumberOfCustomers(6)).toBe(3);

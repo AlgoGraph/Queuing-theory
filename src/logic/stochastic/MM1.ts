@@ -26,8 +26,7 @@
 
 
 export class MM1 {
-    constructor(private arrivalRate: number, private serviceRate: number) {
-    }
+    constructor(private arrivalRate: number, private serviceRate: number) {}
 
     // reviewed
     calcUtilizationOfTheServer = (): number => {
@@ -54,23 +53,27 @@ export class MM1 {
     }
 
     // reviewed
-    calcNumberOfCustomerInTheQueue(): number {
+    calcNumberOfCustomerInTheQueue = (): number => {
         return Math.pow(this.arrivalRate, 2) / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 
     // reviewed
-    calcWaitingTimeInTheSystem(): number {
+    calcWaitingTimeInTheSystem = (): number => {
         return 1 / (this.serviceRate - this.arrivalRate);
     }
 
     // reviewed
-    calcWaitingTimeInTheQueue(): number {
+    calcWaitingTimeInTheQueue = (): number => {
         return this.arrivalRate / (this.serviceRate * (this.serviceRate - this.arrivalRate));
     }
 }
 
 // note: here for the testing: jest fail to create using the constructor for some reason and i don't have time for it right now
 // TODO: remove
-export const createMM1 = (arrivalRate: number, serviceRate: number) => {
-    return new MM1(arrivalRate, serviceRate)
+// export const createMM1 = (arrivalRate: number, serviceRate: number)  => {
+//     return new MM1(arrivalRate, serviceRate)
+// }
+
+export const createMM1 = (arrival_rate: number, service_rate: number) => {
+    return new MM1(arrival_rate, service_rate)
 }
