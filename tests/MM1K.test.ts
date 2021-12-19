@@ -1,11 +1,11 @@
-import {MM1K} from "../src/logic/stochastic/MM1K";
+import {createMM1K, MM1K} from "../src/logic/stochastic/MM1K";
 import {MM1} from "../src/logic/stochastic/MM1";
 
 
 
 describe("MM1K", () => {
     test("slide 5 page 8 B/", () => {
-        const mm1k = new MM1K(2, 2.4,  5);
+        const mm1k = createMM1K(2, 2.4,  5);
         expect(mm1k.calcNumberOfCustomerInTheQueue() - 1.22).toBeLessThan(0.01);
         expect(mm1k.calcNumberOfCustomerInTheSystem() - 1.97).toBeLessThan(0.01);
         expect(mm1k.calcWaitingTimeInTheSystem() - 1.1).toBeLessThan(0.01);

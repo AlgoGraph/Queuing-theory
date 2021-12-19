@@ -1,4 +1,4 @@
-import {LOOP_LIMIT} from "../../app";
+import {LOOP_LIMIT} from "../../constants";
 
 export class DD1k {
     Ti: number;
@@ -29,6 +29,7 @@ export class DD1k {
                 }
             }
         } else {
+            // let l : number = 0, r:
             while (true) {
                 // handle the infinite loop
                 if (this.numberOfCustomerAtTheStart + Math.floor(this.arrival_rate * Ti) -

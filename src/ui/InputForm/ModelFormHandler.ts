@@ -70,7 +70,9 @@ export function getInput(inputId: string, required: boolean = true, handleError:
 
     // if empty > check if the field is required, else evaluate it
     if (input) {
+        console.log(input)
         input = EvaluateExpression(input);
+        console.log(input)
     } else {
         if (required) {
             handleError ? showError(inputId, "Field is required: please enter a valid value.") : null;
@@ -78,7 +80,6 @@ export function getInput(inputId: string, required: boolean = true, handleError:
             return "error";
         }
     }
-
     // if the input can't be evaluated into a number
     if (isNaN(Number(input))) {
         handleError ? showError(inputId, input) : null;
@@ -104,8 +105,12 @@ export function EvaluateExpression(input: string) {
 
     // the 0 on the left > remove the zeros + leading w
     // note: the g flag make it work on all occurrence
-    input = input.replace(/^0+|\s+0+/g,'');
+    input = input.replace(/^0+(\d+)|((\s+|\+|-|\/|\*)0+\d+)/g,(match) => {
+        console.log("match", match)
+        return match.replace(/^0+|(\s*0+)/g, '');
+    });
 
+    console.log(input)
     try {
         input = eval(input);
         return input;
@@ -123,6 +128,7 @@ function validateInput(inputId: string, input: string, handleError: boolean = tr
         case "c":
         case "K":
             if (Number(input) <= 0){
+                console.log("here")
                 handleError ? showError(inputId, "Field must have a value greater than 0") : null;
                 return "error";
             }
